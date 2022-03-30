@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +7,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  constructor(private authSvc: AuthService) {}
 
-  constructor() { }
+  ngOnInit() {}
+  async onLogin(email, password) {
+    try {
+      const user = await this.authSvc.login(email.value, password.value);
+      if (user) {
+        console.log('User->', user);
 
-  ngOnInit() {
+        //Verificar el Email
+      }
+    } catch (onLoginError) {
+      console.log('Error', onLoginError);
+    }
   }
+  async onLoginGoogle(email,password) {
+    try {
+      const user = await this.authSvc.loginGoogle();
+      if (user) {
+        console.log('User->', user);
 
+        //Verificar el Email
+      }
+    } catch (onLoginGoogleError) {
+      console.log('Error', onLoginGoogleError);
+    }
+  }
 }

@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
-import * as firebase from 'firebase/compat';
+//import  auth  from 'firebase/app';
+import * as firebase from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +33,12 @@ export class AuthService {
   }
 
   async loginGoogle(): Promise<User> {
-    // eslint-disable-next-line prefer-const
+
     try {
       // eslint-disable-next-line prefer-const
-      let { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
+      //let { user } = await this.afAuth.signInWithPopup(new auth.auth.GoogleAuthProvider());
+       //this.updateUserData(user);
+      const { user } = await this.afAuth.signInWithPopup(new firebase.GoogleAuthProvider());
       this.updateUserData(user);
       return user;
     } catch (logingGoogleError) {
