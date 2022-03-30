@@ -1,0 +1,6 @@
+{
+	"appId": "com.juanmi.app",
+	"appName": "Lista de la compra",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
