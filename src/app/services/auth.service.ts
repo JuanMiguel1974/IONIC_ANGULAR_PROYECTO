@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../compartida/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap} from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 //import  auth  from 'firebase/app';
 import * as firebase from 'firebase/auth';
 
@@ -13,10 +16,10 @@ import * as firebase from 'firebase/auth';
 export class AuthService {
   public user$: Observable<User>;
 
-  constructor(private afAuth: AngularFireAuth , private afs: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
-      switchMap((user) =>{
-        if(user){
+      switchMap((user) => {
+        if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         }
         return of(null);
@@ -33,12 +36,10 @@ export class AuthService {
   }
 
   async loginGoogle(): Promise<User> {
-
     try {
-      // eslint-disable-next-line prefer-const
-      //let { user } = await this.afAuth.signInWithPopup(new auth.auth.GoogleAuthProvider());
-       //this.updateUserData(user);
-      const { user } = await this.afAuth.signInWithPopup(new firebase.GoogleAuthProvider());
+      const { user } = await this.afAuth.signInWithPopup(
+        new firebase.GoogleAuthProvider()
+      );
       this.updateUserData(user);
       return user;
     } catch (logingGoogleError) {
@@ -82,6 +83,10 @@ export class AuthService {
     }
   }
 
+  isMailVerified(user: User): boolean {
+    return user.emailVerified === true ? true : false;
+  }
+
   async logout(): Promise<void> {
     try {
       await this.afAuth.signOut();
@@ -90,8 +95,10 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User){
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  private updateUserData(user: User) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${user.uid}`
+    );
 
     const data: User = {
       uid: user.uid,
@@ -99,8 +106,6 @@ export class AuthService {
       emailVerified: user.emailVerified,
       displayName: user.displayName,
     };
-    return userRef.set(data, {merge: true});
+    return userRef.set(data, { merge: true });
   }
-
-
 }
