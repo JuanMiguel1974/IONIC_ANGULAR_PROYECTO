@@ -1,3 +1,46 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-split-pane when="xl" contentId="main">
+        <!--  the side menu  -->
+        <ion-menu side="start" menuId="custom" contentId="main" class="my-custom-menu">
+            <ion-header>
+                <ion-toolbar color="tertiary">
+                    <ion-title>Menu</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-menu-toggle routerLink="/login">
+                        <ion-item>Login</ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle routerLink="/registro">
+                        <ion-item>Registro</ion-item>
+                    </ion-menu-toggle>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <ion-menu side="end" menuId="alterno" contentId="main" class="my-custom-menu">
+            <ion-header>
+                <ion-toolbar color="tertiary">
+                    <ion-title>Sesion</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                    <ion-item>Menu Item</ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <!-- the main content -->
+
+        <ion-router-outlet id="main"></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>
