@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-icon button size="large" name="arrow-back-outline" routerLink="/home"></ion-icon>
+        <ion-title slot="end">Login </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form>
+        <ion-grid>
+            <ion-item lines="full">
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="text" #email required></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" #password required></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                    <ion-button type="submit" (click)="onLogin(email, password)" expand="block">Login</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p class="ion-text-end">
+                        <a routerLink="/forgot-password">¿Olvidaste la contraseña?</a>
+                    </p>
+                </ion-col>
+            </ion-row>
+            <span class="center-span">Or</span>
+            <ion-row>
+                <ion-col>
+                    <ion-button type="submit" color="warning" (click)="onLoginGoogle()" expand="block">Login con Google
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <p class="ion-text-end">
+                    <a routerLink="/registro">Crea una cuenta</a>
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

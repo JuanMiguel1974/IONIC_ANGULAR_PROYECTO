@@ -5,7 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
@@ -14,33 +14,42 @@ const routes: Routes = [
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./pages/auth/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'verify-email',
-    loadChildren: () => import('./verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
+    loadChildren: () => import('./pages/auth/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then( m => m.PagesPageModule)
+    path: 'producto-item',
+    loadChildren: () => import('./pages/productos/producto-item/producto-item.module').then( m => m.ProductoItemPageModule)
   },
   {
-    path: 'productos',
-    loadChildren: () => import('./pages/productos/productos.module').then( m => m.ProductosPageModule)
+    path: 'productos-list',
+    loadChildren: () => import('./pages/productos/productos-list/productos-list.module').then( m => m.ProductosListPageModule)
   },
+  {
+    path: 'lista-item',
+    loadChildren: () => import('./pages/lista/lista-item/lista-item.module').then( m => m.ListaItemPageModule)
+  },
+  {
+    path: 'lista-list',
+    loadChildren: () => import('./pages/lista/lista-list/lista-list.module').then( m => m.ListaListPageModule)
+  },
+
 ];
 
 @NgModule({
