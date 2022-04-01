@@ -19,6 +19,14 @@
                 <ion-button type="submit" (click)="onRegister(email, password)" expand="block">Registro</ion-button>
             </ion-col>
         </ion-row>
+        <ion-row>
+            <h2 *ngIf="registroIncorrecto">Registro Incorrecto!!
+                <ion-textarea>
+                    Verifique el formato de su direccion de correo.<br> Tenga en cuenta que no pueden haber espacios al inicio ni al final.<br> Recuerde que la contraseña debe tener al menos 6 caracteres
+                </ion-textarea>
+            </h2>
+        </ion-row>
+
     </form>
     <ion-grid>
         <ion-row>
