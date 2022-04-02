@@ -49,6 +49,14 @@ const routes: Routes = [
     path: 'lista-list',
     loadChildren: () => import('./pages/lista/lista-list/lista-list.module').then( m => m.ListaListPageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'ajustes',
+    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule)
+  },
 
 ];
 

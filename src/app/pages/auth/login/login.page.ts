@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
+
   constructor(private authSvc: AuthService, private router: Router) {}
   async onLogin(email, password) {
     try {

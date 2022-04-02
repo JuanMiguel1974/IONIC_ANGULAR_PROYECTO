@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../compartida/user';
+import { User } from '../models/interfaces';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -7,7 +7,6 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-//import  auth  from 'firebase/app';
 import * as firebase from 'firebase/auth';
 
 @Injectable({

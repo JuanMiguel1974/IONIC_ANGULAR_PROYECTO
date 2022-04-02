@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
   img: string;
 
-  constructor() {}
+  constructor(private firestore: FirestoreService) {}
 
   ngOnInit(): void {
-    this.img = '../../../assets/img/panaderia.png';
+    this.img = '../../../assets/img/home3.jpg';
+  }
+  getUsers(){
+    this.firestore.getCollection();
   }
 }

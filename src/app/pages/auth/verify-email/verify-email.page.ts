@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../../compartida/user';
+import { User } from '../../../models/interfaces';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
