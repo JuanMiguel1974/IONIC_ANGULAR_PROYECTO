@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/interfaces';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { PagesInformationService } from 'src/app/services/pages-information.service';
 
 @Component({
   selector: 'app-producto-item',
@@ -21,17 +22,25 @@ export class ProductoItemPage implements OnInit {
   loading: any;
   constructor(
     public firebase: FirestoreService,
+    public pagesInfo: PagesInformationService,
     public toastController: ToastController,
     public loadingController: LoadingController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const producto = this.pagesInfo.getProducto();
+    if(producto !== undefined){
 
+      this.newProducto = producto;
+    }
+  }
   async save() {
     this.presentLoading();
     console.log(this.newProducto);
     const data = this.newProducto;
-    data.id = this.firebase.createId();
+    if(data.id === ''){
+      data.id = this.firebase.createId();
+    }
     const enlace = 'Productos';
     await this.firebase.createDocument<Producto>(data, enlace, data.id);
     this.presentToast('Guardado con éxito', 2000);

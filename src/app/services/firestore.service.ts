@@ -5,11 +5,12 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Producto } from '../models/interfaces';
 @Injectable({
   providedIn: 'root',
 })
 export class FirestoreService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(public firestore: AngularFirestore) {}
 
   createDocument<Producto>(data: Producto, enlace: string, id: string) {
     const ref = this.firestore.collection<Producto>(enlace);
@@ -17,12 +18,18 @@ export class FirestoreService {
     return ref.doc(id).set(data);
   }
   createId() {
-   return this.firestore.createId();
+    return this.firestore.createId();
   }
 
-  deleteDocument() {}
+  deleteDocument<Producto>(enlace: string, id: string) {
+    const ref = this.firestore.collection<Producto>(enlace);
+    return ref.doc(id).delete();
+  }
 
-  getDocument() {}
+  getCollectionChanges<Producto>(path: string): Observable<Producto[]> {
+    const ref = this.firestore.collection<Producto>(path);
+    return ref.valueChanges();
+  }
 
   editDocument() {}
 
@@ -34,4 +41,5 @@ export class FirestoreService {
         console.log('users', res);
       });
   }
+
 }

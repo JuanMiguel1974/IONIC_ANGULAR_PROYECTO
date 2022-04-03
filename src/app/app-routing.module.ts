@@ -19,6 +19,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
+
   },
   {
     path: 'admin',
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'ajustes',
     loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule)
+  },
+  {
+    path: 'pruebas-crud',
+    loadChildren: () => import('./pages/pruebas-crud/pruebas-crud.module').then( m => m.PruebasCrudPageModule)
   },
 
 ];

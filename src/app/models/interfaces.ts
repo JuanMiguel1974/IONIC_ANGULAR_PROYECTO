@@ -5,13 +5,13 @@ export interface User {
   emailVerified: boolean;
 }
 
-export interface Cliente {
+/* export interface Cliente {
   cid: string;
   productos: string[];
   listas: string[];
   nickname: string;
   avatar: string;
-}
+} */
 
 export interface Producto {
   id: string;
