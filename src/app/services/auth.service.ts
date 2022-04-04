@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/interfaces';
+import { Cliente, User } from '../models/interfaces';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -26,10 +26,22 @@ export class AuthService {
       })
     );
   }
-
-  async login(correo: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(correo,password);
+  async login(email: string, password: string): Promise<User> {
+    try {
+      const { user } = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      this.updateUserData(user);
+      return user;
+    } catch (loginError) {
+      console.log('Error->', loginError);
+    }
   }
+
+ registrarUser(datos: Cliente) {
+return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
+ }
 
   async resetPassword(email: string): Promise<void> {
     try {

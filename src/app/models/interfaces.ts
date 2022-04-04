@@ -9,6 +9,7 @@ export interface Cliente {
   uid: string;
   productos: string[];
   listas: string[];
+  lista: string[];
   nickname: string;
   avatar: string;
   correo: string;

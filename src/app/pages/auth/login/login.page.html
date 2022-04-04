@@ -9,17 +9,16 @@
     <form>
         <ion-grid>
             <ion-item lines="full">
-                <p>Email</p><br>
-                <input type="text" #email required [(ngModel)]="credenciales.correo" name="first">
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="text" #email required></ion-input>
             </ion-item>
             <ion-item lines="full">
-                <!--  <ion-label position="floating">Password</ion-label> -->
-                <p>Password</p><br>
-                <input type="password" #password required [(ngModel)]="credenciales.password" [ngModelOptions]="{standalone: true}">
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" #password required></ion-input>
             </ion-item>
             <ion-row>
                 <ion-col>
-                    <ion-button (click)="login()" expand="block">Login</ion-button>
+                    <ion-button type="submit" (click)="onLogin(email, password)" expand="block">Login</ion-button>
                 </ion-col>
             </ion-row>
             <ion-row>

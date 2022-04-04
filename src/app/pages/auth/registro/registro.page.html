@@ -5,30 +5,33 @@
 
     </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <form>
-        <ion-item lines="full">
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="text" #email required></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" #password required></ion-input>
-        </ion-item>
-        <ion-row>
-            <ion-col>
-                <ion-button type="submit" (click)="onRegister(email, password)" expand="block">Registro</ion-button>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <h2 *ngIf="registroIncorrecto">Registro Incorrecto!!
-                <ion-textarea>
-                    Verifique el formato de su direccion de correo.<br> Tenga en cuenta que no pueden haber espacios al inicio ni al final.<br> Recuerde que la contraseña debe tener al menos 6 caracteres
-                </ion-textarea>
-            </h2>
-        </ion-row>
-
+        <ion-grid>
+            <ion-item lines="full">
+                <!--                 <ion-label position="floating">Email</ion-label>
+ -->
+                <p>Password</p><br>
+                <input type="text" #email required ngModel="datos.correo"><input>
+            </ion-item>
+            <ion-item lines="full">
+                <p>Password</p><br>
+                <ion-input type="password" #password required ngModel="datos.password"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Nickname</ion-label>
+                <ion-input ngModel="datos.nickname"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Avatar</ion-label>
+                <ion-input ngModel="datos.avatar"></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                    <ion-button type="submit" (click)="registrar()" expand="block">Registro</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </form>
     <ion-grid>
         <ion-row>

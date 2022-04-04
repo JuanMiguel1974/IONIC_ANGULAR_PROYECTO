@@ -13,11 +13,11 @@ export class FirestoreService {
 
   constructor(public firestore: AngularFirestore) {}
 
- /*  createDocument<Producto>(data: Producto, enlace: string, id: string) {
-    const ref = this.firestore.collection<Producto>(enlace);
-    this.firestore.collection('productos');
-    return ref.doc(id).set(data);
+ createDocument(data: any, path: string, id: string) {
+   const collection = this.firestore.collection(path);
+    return collection.doc(id).set(data);
   }
+
   createId() {
     return this.firestore.createId();
   }
@@ -39,5 +39,4 @@ export class FirestoreService {
         console.log('users', res);
       });
   }
- */
 }
