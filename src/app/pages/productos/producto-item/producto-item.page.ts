@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/interfaces';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { PagesInformationService } from 'src/app/services/pages-information.service';
 
 @Component({
@@ -19,12 +20,10 @@ export class ProductoItemPage implements OnInit {
     foto: '',
   };
 
-  loading: any;
   constructor(
     public firebase: FirestoreService,
     public pagesInfo: PagesInformationService,
-    public toastController: ToastController,
-    public loadingController: LoadingController
+    public interactionSvc: InteractionService
   ) {}
 
   ngOnInit() {
@@ -35,7 +34,7 @@ export class ProductoItemPage implements OnInit {
     }
   }
   async save() {
-    this.presentLoading();
+    this.interactionSvc.presentLoading();
     console.log(this.newProducto);
     const data = this.newProducto;
     if(data.id === ''){
@@ -43,8 +42,8 @@ export class ProductoItemPage implements OnInit {
     }
     const enlace = 'Productos';
     await this.firebase.createDocument<Producto>(data, enlace, data.id);
-    this.presentToast('Guardado con éxito', 2000);
-    this.loading.dismiss();
+    this.interactionSvc.presentToast('Guardado con éxito',2000);
+    this.interactionSvc.loading.dismiss();
     this.newProducto = {
       id: '',
       nombre: '',
@@ -54,19 +53,5 @@ export class ProductoItemPage implements OnInit {
       foto: '',
     };
   }
-  async presentToast(mensaje: string, tiempo: number) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: tiempo,
-    });
-    toast.present();
-  }
 
-  async presentLoading() {
-    this.loading = await this.loadingController.create({
-      message: 'Guardando',
-
-    });
-    await this.loading.present();
-  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { sendPasswordResetEmail } from 'firebase/auth';
+import { Cliente } from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-registro',
@@ -9,6 +10,16 @@ import { sendPasswordResetEmail } from 'firebase/auth';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage {
+  /* datos: Cliente = {
+    uid: null,
+    productos: null,
+    listas: null,
+    nickname: null,
+    avatar: null,
+    correo: null,
+    password: null,
+    perfil: 'cliente'
+  }; */
   public registroIncorrecto = false;
   constructor(private authSvc: AuthService, private router: Router) {}
   async onRegister(email, password) {

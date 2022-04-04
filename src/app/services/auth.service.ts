@@ -16,6 +16,7 @@ export class AuthService {
   public user$: Observable<User>;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
+
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -26,6 +27,10 @@ export class AuthService {
     );
   }
 
+  async login(correo: string, password: string) {
+    return this.afAuth.signInWithEmailAndPassword(correo,password);
+  }
+
   async resetPassword(email: string): Promise<void> {
     try {
       return this.afAuth.sendPasswordResetEmail(email);
@@ -33,7 +38,6 @@ export class AuthService {
       console.log('Error->', resetPasswordError);
     }
   }
-
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(
@@ -44,6 +48,10 @@ export class AuthService {
     } catch (logingGoogleError) {
       console.log('Error->', logingGoogleError);
     }
+  }
+
+  async logout() {
+   this.afAuth.signOut();
   }
 
   async register(email: string, password: string): Promise<User> {
@@ -59,21 +67,6 @@ export class AuthService {
       console.log('Error->', registerError);
     }
   }
-
-  async login(email: string, password: string): Promise<User> {
-    try {
-      // eslint-disable-next-line prefer-const
-      let { user } = await this.afAuth.signInWithEmailAndPassword(
-        email,
-        password
-      );
-      this.updateUserData(user);
-      return user;
-    } catch (loginError) {
-      console.log('Error->', loginError);
-    }
-  }
-
   async sendVerificationEmail(): Promise<void> {
     try {
       return (await this.afAuth.currentUser).sendEmailVerification();
@@ -85,15 +78,6 @@ export class AuthService {
   isMailVerified(user: User): boolean {
     return user.emailVerified === true ? true : false;
   }
-
-  async logout(): Promise<void> {
-    try {
-      await this.afAuth.signOut();
-    } catch (logOutError) {
-      console.log('Error->', logOutError);
-    }
-  }
-
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
@@ -104,6 +88,7 @@ export class AuthService {
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: user.displayName,
+
     };
     return userRef.set(data, { merge: true });
   }
