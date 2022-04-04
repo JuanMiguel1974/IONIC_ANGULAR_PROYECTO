@@ -4,6 +4,7 @@ import { Producto } from 'src/app/models/interfaces';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { PagesInformationService } from 'src/app/services/pages-information.service';
+import { ProductoDbService } from 'src/app/services/productoDb.service';
 
 @Component({
   selector: 'app-producto-item',
@@ -11,6 +12,8 @@ import { PagesInformationService } from 'src/app/services/pages-information.serv
   styleUrls: ['./producto-item.page.scss'],
 })
 export class ProductoItemPage implements OnInit {
+  producto: Producto;
+  productos: Producto[] = [];
   newProducto: Producto = {
     id: '',
     nombre: '',
@@ -21,13 +24,13 @@ export class ProductoItemPage implements OnInit {
   };
 
   constructor(
-    public firebase: FirestoreService,
-    public pagesInfo: PagesInformationService,
+    public productoDbSvc: ProductoDbService,
+    public pagesInfoSvc: PagesInformationService,
     public interactionSvc: InteractionService
   ) {}
 
   ngOnInit() {
-    const producto = this.pagesInfo.getProducto();
+    const producto = this.pagesInfoSvc.getProducto();
     if(producto !== undefined){
 
       this.newProducto = producto;
@@ -38,10 +41,10 @@ export class ProductoItemPage implements OnInit {
     console.log(this.newProducto);
     const data = this.newProducto;
     if(data.id === ''){
-      data.id = this.firebase.createId();
+      data.id = this.productoDbSvc.createId();
     }
     const enlace = 'Productos';
-    await this.firebase.createDocument<Producto>(data, enlace, data.id);
+    await this.productoDbSvc.createDocument<Producto>(data, enlace, data.id);
     this.interactionSvc.presentToast('Guardado con éxito',2000);
     this.interactionSvc.loading.dismiss();
     this.newProducto = {
@@ -53,5 +56,23 @@ export class ProductoItemPage implements OnInit {
       foto: '',
     };
   }
+ /*  getProductos() {
+    const path = 'Productos';
+    this.productoDbSvc.getCollectionChanges<Producto>(path).subscribe((res) => {
+      this.productos = res;
+    });
+  }
+  editProducto(producto: Producto) {
+    this.pagesInfoSvc.setProducto(producto);
+  }
+
+ async deleteProducto(producto: Producto){
+    await this.productoDbSvc.deleteDocument<Producto>('Productos',producto.id).catch(res =>{
+     console.log('Error ->', res);
+
+
+    });
+
+  }*/
 
 }

@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { Producto } from '../models/interfaces';
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class FirestoreService {
+export class ProductoDbService {
 
   constructor(public firestore: AngularFirestore) {}
 
- /*  createDocument<Producto>(data: Producto, enlace: string, id: string) {
+  createDocument<Producto>(data: Producto, enlace: string, id: string) {
     const ref = this.firestore.collection<Producto>(enlace);
     this.firestore.collection('productos');
     return ref.doc(id).set(data);
@@ -39,5 +35,4 @@ export class FirestoreService {
         console.log('users', res);
       });
   }
- */
 }

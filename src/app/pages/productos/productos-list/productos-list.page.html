@@ -1,9 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>productos-list</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-icon button size="large" name="arrow-back-outline" routerLink="/home"></ion-icon>
+        <ion-title>Listado de productos</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-list>
+        <ion-item *ngFor="let producto of productos">
+            <ion-label>
+                {{ producto.nombre }}
+            </ion-label>
+            <ion-buttons slot="end">
+                <ion-button routerLink="/producto-item" (click)="editProducto(producto)">
+                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="deleteProducto(producto)">
+                    <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
+    </ion-list>
 </ion-content>
