@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController, PopoverController } from '@ionic/angular';
+import { popoverController } from '@ionic/core';
 import { AuthService } from './services/auth.service';
 import { InteractionService } from './services/interaction.service';
 
@@ -10,12 +11,27 @@ import { InteractionService } from './services/interaction.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+  login: boolean = false;
   constructor(
     private menu: MenuController,
     private authSvc: AuthService,
     private interactionSvc: InteractionService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private popover: PopoverController,
+  ) {
+    this.authSvc.stateUser().subscribe( res =>{
+      if(res){
+        console.log('logeado');
+
+       this.login=true;
+      }else{
+        console.log('no logeado');
+
+       this.login=false;
+      }
+    });
+  }
 
   closeMenu() {
     this.menu.close();

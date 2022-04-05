@@ -14,51 +14,45 @@
             <ion-content>
                 <ion-list>
                     <ion-menu-toggle>
-                        <ion-item>
-                            <ion-label>Home</ion-label>
-                            <ion-icon name="log-in-outline" type="button" routerLink="/home"></ion-icon>
+                        <ion-item detail="true" *ngIf="login === true" routerLink="/perfil">
+                            <ion-label>Mi perfil</ion-label>
+                            <ion-icon slot="exit-outline" name="apps"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item>
+                        <ion-item *ngIf="login === false">
                             <ion-label>Login</ion-label>
                             <ion-icon name="log-in-outline" type="button" routerLink="/login"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item>
+                        <ion-item *ngIf="login === false">
                             <ion-label>Register</ion-label>
                             <ion-icon name="accessibility-outline" type="button" routerLink="/registro"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
-                    <ion-menu-toggle>
+                    <ion-menu-toggle *ngIf="login === true">
                         <ion-item>
                             <ion-label>Lista Productos</ion-label>
-                            <ion-icon name="accessibility-outline" type="button" routerLink="/productos-list"></ion-icon>
+                            <ion-icon name="caret-down-sharp" type="button"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+
+                    <ion-menu-toggle>
+                        <ion-item *ngIf="login === true">
+                            <ion-label>Nuevo producto</ion-label>
+                            <ion-icon slot="end" type="button" name="add-circle-outline" routerLink="/producto-item"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item detail="true" routerLink="/perfil">
-                            <ion-label>Mi perfil</ion-label>
-                            <ion-icon slot="start" name="apps"></ion-icon>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
-                        <ion-item detail="true" (click)="logout()">
+                        <ion-item detail="true" *ngIf="login === true" (click)="logout()">
                             <ion-label>Logout</ion-label>
-                            <ion-icon slot="start" name="apps"></ion-icon>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
-                        <ion-item>
-                            <ion-label>Añadir Producto</ion-label>
-                            <ion-icon slot="start" name="apps" routerLink="/producto-item"></ion-icon>
+                            <ion-icon slot="end" name="exit-outline" routerLink="/login"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                 </ion-list>
             </ion-content>
         </ion-menu>
-
         <ion-router-outlet id="main"></ion-router-outlet>
     </ion-split-pane>
 

@@ -14,8 +14,7 @@ import * as firebase from 'firebase/auth';
 })
 export class AuthService {
   public user$: Observable<User>;
-
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
 
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
@@ -39,7 +38,7 @@ export class AuthService {
     }
   }
 
- registrarUser(datos: Cliente) {
+registrarUser(datos: Cliente) {
 return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
  }
 
@@ -90,6 +89,10 @@ return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
   isMailVerified(user: User): boolean {
     return user.emailVerified === true ? true : false;
   }
+  stateUser(){
+    return this.afAuth.authState;
+
+  }
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
@@ -104,4 +107,5 @@ return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
     };
     return userRef.set(data, { merge: true });
   }
+
 }

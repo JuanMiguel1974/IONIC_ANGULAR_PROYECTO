@@ -21,6 +21,7 @@ export class ProductoItemPage implements OnInit {
     descripcion: '',
     presentacion: '',
     foto: '',
+    supermercado:'',
   };
 
   constructor(
@@ -54,6 +55,7 @@ export class ProductoItemPage implements OnInit {
       descripcion: '',
       presentacion: '',
       foto: '',
+      supermercado:'',
     };
   }
  /*  getProductos() {

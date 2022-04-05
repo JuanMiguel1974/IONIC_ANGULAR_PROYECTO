@@ -7,8 +7,8 @@ export interface User {
 
 export interface Cliente {
   uid: string;
-  productos: string[];
   listas: string[];
+  productos: string[];
   lista: string[];
   nickname: string;
   avatar: string;
@@ -24,6 +24,7 @@ export interface Producto {
   descripcion: string;
   presentacion: string;
   foto: string;
+  supermercado: string;
 }
 
 export interface Lista {

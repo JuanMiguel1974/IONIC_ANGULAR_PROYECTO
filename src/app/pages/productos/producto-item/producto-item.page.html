@@ -4,31 +4,29 @@
         <ion-title slot="end">Añade productos a tu lista </ion-title>
     </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <div style="margin-top:35px; padding: 10px;">
         crear nuevo producto</div>
-
     <ion-card>
         <ion-item class="itemInput">
             <ion-label position="stacked">Nombre</ion-label>
-            <ion-input type="text" *[(ngModel)]="newProducto.nombre"></ion-input>
+            <ion-input type="text" [(ngModel)]="newProducto.nombre"></ion-input>
         </ion-item>
         <ion-item class="itemInput">
             <ion-label position="stacked">Precio</ion-label>
-            <ion-input type="text" type="number" *[(ngModel)]="newProducto.precio"></ion-input>
+            <ion-input type="text" type="number" [(ngModel)]="newProducto.precio"></ion-input>
         </ion-item>
         <ion-item class="itemInput">
             <ion-label position="stacked">Descripcion</ion-label>
-            <ion-input type="text" *[(ngModel)]="newProducto.descripcion"></ion-input>
+            <ion-input type="text" [(ngModel)]="newProducto.descripcion"></ion-input>
         </ion-item>
         <ion-item class="itemInput">
             <ion-label position="stacked">Presentacion</ion-label>
-            <ion-input type="text" *[(ngModel)]="newProducto.presentacion"></ion-input>
+            <ion-input type="text" [(ngModel)]="newProducto.presentacion"></ion-input>
         </ion-item>
         <ion-item class="itemInput">
             <ion-label position="stacked">Foto</ion-label>
-            <ion-input type="text" *[(ngModel)]="newProducto.foto"></ion-input>
+            <ion-input type="text" [(ngModel)]="newProducto.foto"></ion-input>
         </ion-item>
         <ion-item>
             <ion-buttons slot="end">
@@ -41,6 +39,5 @@
             </ion-buttons>
         </ion-item>
     </ion-card>
-
 
 </ion-content>
