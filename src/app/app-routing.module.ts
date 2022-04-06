@@ -36,11 +36,13 @@ const routes: Routes = [
   },
   {
     path: 'producto-item',
-    loadChildren: () => import('./pages/productos/producto-item/producto-item.module').then( m => m.ProductoItemPageModule)
+    loadChildren: () => import('./pages/productos/producto-item/producto-item.module').then( m => m.ProductoItemPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'productos-list',
-    loadChildren: () => import('./pages/productos/productos-list/productos-list.module').then( m => m.ProductosListPageModule)
+    loadChildren: () => import('./pages/productos/productos-list/productos-list.module').then( m => m.ProductosListPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'lista-item',
@@ -52,15 +54,12 @@ const routes: Routes = [
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'ajustes',
     loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule)
-  },
-  {
-    path: 'productos',
-    loadChildren: () => import('./pages/productos/productos/productos.module').then( m => m.ProductosPageModule)
   },
 ];
 

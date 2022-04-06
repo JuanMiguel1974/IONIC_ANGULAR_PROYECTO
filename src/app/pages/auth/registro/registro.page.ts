@@ -5,6 +5,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { Cliente, User } from 'src/app/models/interfaces';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-registro',
@@ -27,6 +28,7 @@ export class RegistroPage implements OnInit {
     private authSvc: AuthService,
     private router: Router,
     private interactionSvc: InteractionService,
+    private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {}
@@ -47,6 +49,9 @@ export class RegistroPage implements OnInit {
       console.log('Error', onRegisterError);
     }
   }
+  /* registrarUser(datos: Cliente) {
+    return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
+     } */
   private redirectUser(isVerified: boolean): void {
     if (isVerified) {
       this.router.navigate(['admin']);
@@ -54,4 +59,5 @@ export class RegistroPage implements OnInit {
       this.router.navigate(['verify-email']);
     }
   }
+
 }

@@ -93,6 +93,9 @@ return this.afAuth.createUserWithEmailAndPassword(datos.correo,datos.password);
     return this.afAuth.authState;
 
   }
+  getUser(){
+    const path = 'users';
+  }
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`

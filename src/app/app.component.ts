@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { popoverController } from '@ionic/core';
 import { AuthService } from './services/auth.service';
+import { FirestoreService } from './services/firestore.service';
 import { InteractionService } from './services/interaction.service';
 
 @Component({
@@ -19,16 +20,16 @@ export class AppComponent {
     private interactionSvc: InteractionService,
     private router: Router,
     private popover: PopoverController,
+    private firestore: FirestoreService
   ) {
-    this.authSvc.stateUser().subscribe( res =>{
-      if(res){
+    this.authSvc.stateUser().subscribe((res) => {
+      if (res) {
         console.log('logeado');
-
-       this.login=true;
-      }else{
+        this.login = true;
+        this.getDatosUser(res.uid);
+      } else {
         console.log('no logeado');
-
-       this.login=false;
+        this.login = false;
       }
     });
   }
@@ -36,10 +37,16 @@ export class AppComponent {
   closeMenu() {
     this.menu.close();
   }
-  logout(){
-this.authSvc.logout();
-this.interactionSvc.presentToast('Sesion finalizada',2000);
-this.router.navigate(['/home']);
+  logout() {
+    this.authSvc.logout();
+    this.interactionSvc.presentToast('Sesion finalizada', 2000);
+    this.router.navigate(['/home']);
   }
-
+  getDatosUser(uid: string) {
+    const path = 'users';
+    const id = uid;
+    this.firestore.getCollectionChanges(path).subscribe((res) => {
+      console.log('datos', res);
+    });
+  }
 }

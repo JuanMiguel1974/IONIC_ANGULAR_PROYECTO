@@ -21,6 +21,11 @@ export class FirestoreService {
   createId() {
     return this.firestore.createId();
   }
+  getDocument<User>(path: string, uid: string){
+    const ref = this.firestore.collection('users').doc<User>(uid).get();
+    return ref;
+
+  }
 
   deleteDocument<Producto>(enlace: string, id: string) {
     const ref = this.firestore.collection<Producto>(enlace);
