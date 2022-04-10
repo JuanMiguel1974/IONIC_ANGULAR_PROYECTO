@@ -27,12 +27,4 @@ export class ProductoDbService {
     const ref = this.firestore.collection<Producto>(path);
     return ref.valueChanges();
   }
- /*  getCollection() {
-    this.firestore
-      .collection('users')
-      .valueChanges()
-      .subscribe((res) => {
-        console.log('users', res);
-      });
-  } */
 }

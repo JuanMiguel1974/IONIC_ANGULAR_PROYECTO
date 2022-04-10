@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, PopoverController } from '@ionic/angular';
-import { popoverController } from '@ionic/core';
 import { AuthService } from './services/auth.service';
 import { FirestoreService } from './services/firestore.service';
 import { InteractionService } from './services/interaction.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -33,13 +31,13 @@ export class AppComponent {
       }
     });
   }
-
   closeMenu() {
     this.menu.close();
   }
   logout() {
     this.authSvc.logout();
     this.interactionSvc.presentToast('Sesion finalizada', 2000);
+    localStorage.removeItem('token');
     this.router.navigate(['/home']);
   }
   getDatosUser(uid: string) {
