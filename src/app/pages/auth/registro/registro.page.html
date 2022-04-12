@@ -6,21 +6,29 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <form>
-        <ion-item lines="full">
+    <ion-card>
+        <ion-item lines="full" class="itemInput">
             <ion-label position="floating">Email</ion-label>
-            <ion-input type="text" #email required></ion-input>
+            <ion-input [(ngModel)]="datos.correo" required></ion-input>
         </ion-item>
-        <ion-item lines="full">
+        <ion-item lines="full" class="itemInput">
             <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" #password required></ion-input>
+            <ion-input type="password" [(ngModel)]="datos.password" required></ion-input>
+        </ion-item>
+        <ion-item lines="full" class="itemInput">
+            <ion-label position="floating">Nickname</ion-label>
+            <ion-input type="text" [(ngModel)]="datos.nickname"></ion-input>
+        </ion-item>
+        <ion-item lines="full" class="itemInput">
+            <ion-label position="floating">Foto de usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="datos.fotoDePerfil"></ion-input>
         </ion-item>
         <ion-row>
             <ion-col>
-                <ion-button type="submit" (click)="registrar(email,password)" expand="block">Registro</ion-button>
+                <ion-button type="submit" (click)="registrar()" expand="block">Registro</ion-button>
             </ion-col>
         </ion-row>
-    </form>
+    </ion-card>
     <ion-grid>
         <ion-row>
             <ion-col>

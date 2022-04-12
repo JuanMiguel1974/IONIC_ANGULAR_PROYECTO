@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
@@ -21,9 +22,8 @@ export class FirestoreService {
   createId() {
     return this.firestore.createId();
   }
-  getDocument<User>(path: string, uid: string){
-    const ref = this.firestore.collection('users').doc<User>(uid).get();
-    return ref;
+  getDocument<tipo>(path: string, id: string){
+  return this.firestore.collection(path).doc<tipo>(id).valueChanges();
 
   }
 

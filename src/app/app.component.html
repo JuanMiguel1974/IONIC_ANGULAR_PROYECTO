@@ -14,7 +14,13 @@
             <ion-content>
                 <ion-list>
                     <ion-menu-toggle>
-                        <ion-item detail="true" *ngIf="login === true" routerLink="/perfil">
+                        <ion-item *ngIf="perfil === 'admin'" routerLink="/ajustes">
+                            <ion-label>Ajustes</ion-label>
+                            <ion-icon slot="end" name="settings-outline"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item detail="true" *ngIf="login && perfil === 'usuario'" routerLink="/perfil">
                             <ion-label>Mi perfil</ion-label>
                             <ion-icon slot="exit-outline" name="apps"></ion-icon>
                         </ion-item>
@@ -31,10 +37,10 @@
                             <ion-icon name="accessibility-outline" type="button" routerLink="/registro"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
-                    <ion-menu-toggle *ngIf="login === true">
-                        <ion-item>
+                    <ion-menu-toggle>
+                        <ion-item *ngIf="login === true">
                             <ion-label>Lista Productos</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button"></ion-icon>
+                            <ion-icon name="caret-down-sharp" type="button" routerLink="/productos-list"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
 

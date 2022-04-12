@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
         this.cookieService.set('token', user.token);
         this.interactionSvc.loading.dismiss();
         this.interactionSvc.presentToast('Ha ingresado con exito!!', 3000);
-        this.redirectUser(isVerified);
+        this.router.navigate(['home']);
       } else {
         this.interactionSvc.loading.dismiss();
         this.interactionSvc.presentToast(
@@ -70,15 +70,20 @@ export class LoginPage implements OnInit {
     .subscribe(
       (res) => {
         const token = (res.body.idToken);
+        const localId = (res.body.localId);
+        const expiresIn = (res.body.expiresIn);
         console.log(token);
         localStorage.setItem('token',token);
+        localStorage.setItem('localId',localId);
+        localStorage.setItem('expiresIn',expiresIn);
         this.cookieService.set('token',token);
         sessionStorage.setItem('token',token);
-       // this.router.navigate(['/home]']);
+       this.router.navigate(['home']);
       },
     );
 
   }
+
   async onLoginGoogle() {
     try {
       const user = await this.authSvc.loginGoogle();
@@ -103,5 +108,3 @@ export class LoginPage implements OnInit {
     }
   }
 }
-
-

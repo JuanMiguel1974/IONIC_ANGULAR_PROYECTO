@@ -1,7 +1,17 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar color="secondary">
         <ion-icon button size="large" name="arrow-back-outline" routerLink="/home"></ion-icon>
         <ion-title slot="end">Añade productos a tu lista </ion-title>
+    </ion-toolbar>
+</ion-header> -->
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Añade productos a tu lista</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -24,10 +34,17 @@
             <ion-label position="stacked">Presentacion</ion-label>
             <ion-input type="text" [(ngModel)]="newProducto.presentacion"></ion-input>
         </ion-item>
-        <ion-item class="itemInput">
+        <!-- <ion-item class="itemInput">
             <ion-label position="stacked">Foto</ion-label>
-            <ion-input type="text" [(ngModel)]="newProducto.foto"></ion-input>
+            <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+            <input (ngModelChange)="capturarFotoProducto($event)" type="file" [(ngModel)]="newProducto.foto"><input>
         </ion-item>
+        <ion-item>
+            <ion-button type="button" (click)="subirArchivo()">Subir foto</ion-button>
+        </ion-item>
+        <ion-item *ngIf="previsualizacion">
+            <ion-img> <img [src]="previsualizacion" width="100px" alt=""></ion-img>
+        </ion-item> -->
         <ion-item>
             <ion-buttons slot="end">
                 <ion-label>Guardar</ion-label>

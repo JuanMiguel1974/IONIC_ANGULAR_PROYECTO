@@ -5,7 +5,7 @@
 /* eslint-disable radix */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
-import { Cliente, User } from '../models/interfaces';
+import { IUser, User } from '../models/interfaces';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -58,13 +58,26 @@ export class AuthService {
     } catch (loginError) {
       console.log('Error->', loginError);
     }
-
   }
-  registrarUser(datos: Cliente) {
+
+  registrarUser(datos: IUser) {
     return this.afAuth.createUserWithEmailAndPassword(
       datos.correo,
       datos.password
     );
+  }
+  async register(email: string, password: string): Promise<User> {
+    try {
+      // eslint-disable-next-line prefer-const
+      let { user } = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await this.sendVerificationEmail();
+      return user;
+    } catch (registerError) {
+      console.log('Error->', registerError);
+    }
   }
 
   async resetPassword(email: string): Promise<void> {
@@ -89,19 +102,7 @@ export class AuthService {
     this.afAuth.signOut();
     localStorage.removeItem('idToken');
   }
-  async register(email: string, password: string): Promise<User> {
-    try {
-      // eslint-disable-next-line prefer-const
-      let { user } = await this.afAuth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await this.sendVerificationEmail();
-      return user;
-    } catch (registerError) {
-      console.log('Error->', registerError);
-    }
-  }
+
   async sendVerificationEmail(): Promise<void> {
     try {
       return (await this.afAuth.currentUser).sendEmailVerification();
@@ -121,6 +122,22 @@ export class AuthService {
   }
   getToken() {
     return this.token;
+  }
+  async getLocalId() {
+    const user = await this.afAuth.currentUser;
+    if(user){
+      const localId = localStorage.getItem('localId');
+      console.log('localId', localId);
+      return localId;
+    }
+    return null;
+  }
+  async getUid() {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      return user.uid;
+    }
+    return null;
   }
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(

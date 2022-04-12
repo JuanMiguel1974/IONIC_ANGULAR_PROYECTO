@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, PopoverController } from '@ionic/angular';
+import { IUser } from './models/interfaces';
 import { AuthService } from './services/auth.service';
 import { FirestoreService } from './services/firestore.service';
 import { InteractionService } from './services/interaction.service';
@@ -12,12 +13,13 @@ import { InteractionService } from './services/interaction.service';
 export class AppComponent {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   login: boolean = false;
+  perfil: 'usuario' | 'admin';
   constructor(
     private menu: MenuController,
     private authSvc: AuthService,
     private interactionSvc: InteractionService,
     private router: Router,
-    private popover: PopoverController,
+   // private popover: PopoverController,
     private firestore: FirestoreService
   ) {
     this.authSvc.stateUser().subscribe((res) => {
@@ -37,14 +39,18 @@ export class AppComponent {
   logout() {
     this.authSvc.logout();
     this.interactionSvc.presentToast('Sesion finalizada', 2000);
-    localStorage.removeItem('token');
-    this.router.navigate(['/home']);
+    localStorage.clear();
+    sessionStorage.removeItem('token');
+    this.router.navigate(['home']);
   }
   getDatosUser(uid: string) {
-    const path = 'users';
+    const path = 'Usuarios';
     const id = uid;
-    this.firestore.getCollectionChanges(path).subscribe((res) => {
+    this.firestore.getDocument<IUser>(path, id).subscribe(res => {
       console.log('datos', res);
+      if(res) {
+      this.perfil = res.categoria;
+      }
     });
   }
 }

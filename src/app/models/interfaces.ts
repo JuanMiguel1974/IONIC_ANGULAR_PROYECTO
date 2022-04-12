@@ -1,6 +1,6 @@
 export interface User {
   uid?: string;
-  email?: string;
+  email: string;
   displayName?: string;
   emailVerified?: boolean;
   password?: string;
@@ -8,19 +8,23 @@ export interface User {
 }
 
 export interface IResponse{
+  email: string;
   idToken: string;
+  localId: string;
+  expiresIn: string;
 }
-
-export interface Cliente {
-  uid: string;
-  listas: string[];
-  productos: string[];
-  lista: string[];
+export interface Perfil{
   nickname: string;
   avatar: string;
-  correo: string;
-  password: string;
-  perfil: 'cliente' | 'admin';
+}
+export interface IUser {
+  uid?: string;
+  idLocal?: string;
+  nickname?: string;
+  password?: string;
+  correo?: string;
+  categoria?: 'usuario' | 'admin';
+  fotoDePerfil?: string;
 }
 
 export interface Producto {
