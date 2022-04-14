@@ -1,7 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { IUser } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-perfil',
@@ -15,7 +18,9 @@ export class PerfilPage implements OnInit {
 
   constructor(
     private authSvc: AuthService,
-    private firestore: FirestoreService
+    private firestoreSvc: FirestoreService,
+    public alertController: AlertController,
+    private interactionSvc: InteractionService
   ) {}
 
   async ngOnInit() {
@@ -37,9 +42,59 @@ export class PerfilPage implements OnInit {
   getInfoUser() {
     const path = 'Usuarios';
     const localId = this.localId;
-    this.firestore.getDocument<IUser>(path, localId).subscribe((res) => {
-      console.log('datos ->', res);
+    this.firestoreSvc.getDocument<IUser>(path, localId).subscribe((res) => {
+      if (res) {
+        this.infoIUser = res;
+      }
+      console.log('los datos son ->', res);
     });
+  }
+
+  async saveAtributo(nombreAtributo: string, input: any) {
+    await this.interactionSvc.presentLoading();
+    const path = 'Usuarios';
+    const localId = this.localId;
+    const updateDoc = {
+    };
+    updateDoc[nombreAtributo] = input;
+    this.firestoreSvc.updateDocument(path, localId, updateDoc).then(() => {
+      this.interactionSvc.presentToast('actualizado con exito', 2000);
+      this.interactionSvc.loading.dismiss();
+    });
+  }
+
+  async editAtributo(nombreAtributo: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Editar' + nombreAtributo,
+      inputs: [
+        {
+          name: nombreAtributo,
+          type: 'text',
+          placeholder: 'Ingresa tu nuevo' + nombreAtributo,
+        },
+      ],
+
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: (ev) => {
+            console.log('Confirm Ok', ev);
+            this.saveAtributo(nombreAtributo,ev[nombreAtributo]);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
   /* getUid(){
     const uid = await this.authSvc.getUid();

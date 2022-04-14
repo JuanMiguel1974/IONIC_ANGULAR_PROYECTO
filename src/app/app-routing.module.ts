@@ -62,6 +62,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'set-productos',
+    loadChildren: () => import('./pages/set-productos/set-productos.module').then( m => m.SetProductosPageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

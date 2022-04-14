@@ -26,29 +26,33 @@
             <ion-label position="stacked">Precio</ion-label>
             <ion-input type="text" type="number" [(ngModel)]="newProducto.precio"></ion-input>
         </ion-item>
-        <ion-item class="itemInput">
+        <!--  <ion-item class="itemInput">
             <ion-label position="stacked">Descripcion</ion-label>
             <ion-input type="text" [(ngModel)]="newProducto.descripcion"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item class="itemInput">
             <ion-label position="stacked">Presentacion</ion-label>
             <ion-input type="text" [(ngModel)]="newProducto.presentacion"></ion-input>
         </ion-item>
-        <!-- <ion-item class="itemInput">
-            <ion-label position="stacked">Foto</ion-label>
-            <ion-icon slot="icon-only" name="image-outline"></ion-icon>
-            <input (ngModelChange)="capturarFotoProducto($event)" type="file" [(ngModel)]="newProducto.foto"><input>
+        <ion-item>
+            <ion-label class="normal">
+                Foto:
+            </ion-label>
+            <ion-button>
+                <label for="file-upload">
+              <ion-icon slot="icon-only" name="images"></ion-icon>
+            </label>
+                <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
+            </ion-button>
         </ion-item>
         <ion-item>
-            <ion-button type="button" (click)="subirArchivo()">Subir foto</ion-button>
+            <img class="image" [src]="newProducto.foto">
         </ion-item>
-        <ion-item *ngIf="previsualizacion">
-            <ion-img> <img [src]="previsualizacion" width="100px" alt=""></ion-img>
-        </ion-item> -->
+
         <ion-item>
             <ion-buttons slot="end">
                 <ion-label>Guardar</ion-label>
-                <ion-button (click)="save()">
+                <ion-button (click)="guardarProducto()">
                     <ion-icon slot="icon-only" name="save-outline"></ion-icon>
 
                 </ion-button>
@@ -58,3 +62,6 @@
     </ion-card>
 
 </ion-content>
+<!-- <ion-item *ngIf="previsualizacion">
+  <ion-img> <img [src]="previsualizacion" width="100px" alt=""></ion-img>
+</ion-item> -->

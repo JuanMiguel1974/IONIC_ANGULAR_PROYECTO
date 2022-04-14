@@ -26,17 +26,14 @@ export interface IUser {
   categoria?: 'usuario' | 'admin';
   fotoDePerfil?: string;
 }
-
 export interface Producto {
   id: string;
   nombre: string;
   precio: number;
-  descripcion: string;
   presentacion: string;
   foto: string;
   supermercado: string;
 }
-
 export interface Lista {
   lid: string;
   productos: string[];

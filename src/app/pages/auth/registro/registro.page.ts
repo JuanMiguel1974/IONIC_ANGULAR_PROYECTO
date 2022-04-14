@@ -24,7 +24,7 @@ export class RegistroPage implements OnInit {
     private authSvc: AuthService,
     private router: Router,
     private interactionSvc: InteractionService,
-    public firestore: FirestoreService
+    public firestoreSvc: FirestoreService
   ) {}
 
   ngOnInit() {}
@@ -43,7 +43,7 @@ export class RegistroPage implements OnInit {
       const uid = res.user.uid;
       this.datos.uid = uid;
       this.datos.password = null;
-      await this.firestore.createDocument(this.datos, path, uid);
+      await this.firestoreSvc.createDocument(this.datos, path, uid);
       this.interactionSvc.loading.dismiss();
       this.interactionSvc.presentToast('Registrado con exito!!', 3000);
       this.router.navigate(['/verify-email']);

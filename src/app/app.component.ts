@@ -20,7 +20,7 @@ export class AppComponent {
     private interactionSvc: InteractionService,
     private router: Router,
    // private popover: PopoverController,
-    private firestore: FirestoreService
+    private firestoreSvc: FirestoreService
   ) {
     this.authSvc.stateUser().subscribe((res) => {
       if (res) {
@@ -46,7 +46,7 @@ export class AppComponent {
   getDatosUser(uid: string) {
     const path = 'Usuarios';
     const id = uid;
-    this.firestore.getDocument<IUser>(path, id).subscribe(res => {
+    this.firestoreSvc.getDocument<IUser>(path, id).subscribe(res => {
       console.log('datos', res);
       if(res) {
       this.perfil = res.categoria;

@@ -39,17 +39,17 @@
                     </ion-menu-toggle>
                     <ion-menu-toggle>
                         <ion-item *ngIf="login === true">
-                            <ion-label>Lista Productos</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/productos-list"></ion-icon>
+                            <ion-label>Productos</ion-label>
+                            <ion-icon name="caret-down-sharp" type="button" routerLink="/set-productos"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
 
-                    <ion-menu-toggle>
+                    <!--  <ion-menu-toggle>
                         <ion-item *ngIf="login === true">
                             <ion-label>Nuevo producto</ion-label>
                             <ion-icon slot="end" type="button" name="add-circle-outline" routerLink="/producto-item"></ion-icon>
                         </ion-item>
-                    </ion-menu-toggle>
+                    </ion-menu-toggle> -->
                     <ion-menu-toggle>
                         <ion-item detail="true" *ngIf="login === true" (click)="logout()">
                             <ion-label>Logout</ion-label>
