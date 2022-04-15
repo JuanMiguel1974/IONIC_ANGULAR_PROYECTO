@@ -13,10 +13,6 @@ export interface IResponse{
   localId: string;
   expiresIn: string;
 }
-export interface Perfil{
-  nickname: string;
-  avatar: string;
-}
 export interface IUser {
   uid?: string;
   idLocal?: string;
@@ -35,17 +31,15 @@ export interface Producto {
   supermercado: string;
 }
 export interface Lista {
-  lid: string;
+  id: string;
   productos: string[];
   total: number;
   mes: string;
 }
-
 export interface Super {
-  spid: string;
+  id: string;
   nombre: string;
 }
-
 export interface Totales {
   totid: string;
   meses: string[];

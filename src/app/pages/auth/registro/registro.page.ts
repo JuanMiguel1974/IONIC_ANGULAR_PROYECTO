@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IUser, User } from 'src/app/models/interfaces';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
   selector: 'app-registro',
@@ -11,6 +12,8 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+  newImage = '';
+  newFile: '';
   datos: IUser = {
     uid: null,
     idLocal: null,
@@ -24,6 +27,7 @@ export class RegistroPage implements OnInit {
     private authSvc: AuthService,
     private router: Router,
     private interactionSvc: InteractionService,
+    private firestorageSvc: FirestorageService,
     public firestoreSvc: FirestoreService
   ) {}
 
@@ -43,12 +47,29 @@ export class RegistroPage implements OnInit {
       const uid = res.user.uid;
       this.datos.uid = uid;
       this.datos.password = null;
+      if (this.newFile !== undefined) {
+        const resp = await this.firestorageSvc.uploadImage(
+          this.newFile,
+          path,
+          uid
+        );
+        this.datos.fotoDePerfil = resp;
+      }
       await this.firestoreSvc.createDocument(this.datos, path, uid);
       this.interactionSvc.loading.dismiss();
       this.interactionSvc.presentToast('Registrado con exito!!', 3000);
       this.router.navigate(['/verify-email']);
     }
-   // this.datos.idLocal= localStorage.getItem('localId');
+  }
+  async newImageUpload(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      this.newFile = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (image) => {
+        this.newImage = image.target.result as string;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   private redirectUser(isVerified: boolean): void {

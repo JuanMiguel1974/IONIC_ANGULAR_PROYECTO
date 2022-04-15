@@ -19,10 +19,29 @@
             <ion-label position="floating">Nickname</ion-label>
             <ion-input type="text" [(ngModel)]="datos.nickname"></ion-input>
         </ion-item>
-        <ion-item lines="full" class="itemInput">
+        <ion-item>
+            <ion-label class="normal">
+                Foto:
+            </ion-label>
+            <ion-buttons slot="end">
+                <ion-button>
+                    <label for="file-upload">
+      <ion-icon slot="icon-only" name="images"></ion-icon>
+    </label>
+                    <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
+                </ion-button>
+            </ion-buttons>
+            <div>
+                <ion-label>Previsualizacion</ion-label>
+                <img class="image" [src]="newImage">
+            </div>
+
+            <img class="image" [src]="datos.fotoDePerfil">
+        </ion-item>
+        <!--  <ion-item lines="full" class="itemInput">
             <ion-label position="floating">Foto de usuario</ion-label>
             <ion-input type="text" [(ngModel)]="datos.fotoDePerfil"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-row>
             <ion-col>
                 <ion-button type="submit" (click)="registrar()" expand="block">Registro</ion-button>

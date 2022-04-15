@@ -21,5 +21,15 @@
                 </ion-button>
             </ion-buttons>
         </ion-item>
+        <ion-item *ngIf="infoIUser">
+            <ion-label>
+                <img class="image" [src]="infoIUser.fotoDePerfil">
+            </ion-label>
+            <ion-buttons slot="end">
+                <ion-button (click)="editAtributo('fotoDePerfil')">
+                    <ion-icon slot="end" name="create-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
     </ion-list>
 </ion-content>

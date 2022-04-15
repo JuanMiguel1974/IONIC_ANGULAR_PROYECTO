@@ -5,13 +5,14 @@ import {
   LoadingController,
   ToastController,
 } from '@ionic/angular';
-import { Producto } from 'src/app/models/interfaces';
+import { IUser, Producto } from 'src/app/models/interfaces';
 import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { PagesInformationService } from 'src/app/services/pages-information.service';
 import { ProductoDbService } from 'src/app/services/productoDb.service';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-set-productos',
@@ -29,6 +30,8 @@ export class SetProductosPage implements OnInit {
 
   newImage = '';
   newFile: '';
+  localId: string = null;
+  infoIUser: IUser = null;
 
   loading: any;
   constructor(
@@ -39,16 +42,40 @@ export class SetProductosPage implements OnInit {
     public alertController: AlertController,
     private firestorageSvc: FirestorageService,
     public pagesInfoSvc: PagesInformationService,
-    public interactionSvc: InteractionService
+    public interactionSvc: InteractionService,
+    public authSvc: AuthService
   ) {}
 
   ngOnInit() {
+    this.authSvc.stateUser().subscribe((res) => {
+      this.getLocalId();
+    });
     this.getProductos();
     const producto = this.pagesInfoSvc.getProducto();
     if (producto !== undefined) {
       this.newProducto = producto;
     }
     this.getProductos();
+  }
+  async getLocalId() {
+    const localId = await this.authSvc.getLocalId();
+    if (localId) {
+      this.localId = localId;
+      console.log(this.localId);
+      this.getInfoUser();
+    } else {
+      console.log('No existe localId');
+    }
+  }
+  getInfoUser() {
+    const path = 'Usuarios';
+    const localId = this.localId;
+    this.firestoreSvc.getDocument<IUser>(path, localId).subscribe((res) => {
+      if (res) {
+        this.infoIUser = res;
+      }
+      console.log('los datos son ->', res);
+    });
   }
 
   async guardarProducto() {
@@ -68,6 +95,7 @@ export class SetProductosPage implements OnInit {
       .then(async (res) => {
         this.interactionSvc.presentToast('guardado con exito', 2000);
         this.interactionSvc.loading.dismiss();
+        this.newImage='';
       })
       .catch((error) => {
         this.interactionSvc.presentToast('no se pudo guardar', 2000);
@@ -79,6 +107,10 @@ export class SetProductosPage implements OnInit {
       this.productos = res;
     });
   }
+  async finishLoading() {
+    this.loading = false;
+    await this.loadingController.dismiss();
+}
   async deleteProducto(producto: Producto) {
     const alert = await this.alertController.create({
       cssClass: 'normal',
@@ -102,14 +134,12 @@ export class SetProductosPage implements OnInit {
               .deleteDoc(this.path, producto.id)
               .then((res) => {
                 this.interactionSvc.presentToast('eliminado con exito', 2000);
-                this.alertController.dismiss();
+                this.finishLoading();
                 this.interactionSvc.loading.dismiss();
                 const filePath = this.path + producto.nombre;
                 const storage = getStorage();
-
                 // Create a reference to the file to delete
                 const desertRef = ref(storage, filePath);
-
                 // Delete the file
                 deleteObject(desertRef)
                   .then(() => {
@@ -138,6 +168,7 @@ export class SetProductosPage implements OnInit {
       foto: '',
       supermercado: '',
     };
+    this.newImage = '';
   }
   async newImageUpload(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -150,3 +181,4 @@ export class SetProductosPage implements OnInit {
     }
   }
 }
+

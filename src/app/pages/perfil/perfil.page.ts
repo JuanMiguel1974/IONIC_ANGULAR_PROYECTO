@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { IUser } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 
@@ -15,12 +16,15 @@ export class PerfilPage implements OnInit {
   localId: string = null;
   uid: string = null;
   infoIUser: IUser = null;
+  newImage = '';
+  newFile: '';
 
   constructor(
     private authSvc: AuthService,
     private firestoreSvc: FirestoreService,
     public alertController: AlertController,
-    private interactionSvc: InteractionService
+    private interactionSvc: InteractionService,
+    private firestorageSvc: FirestorageService
   ) {}
 
   async ngOnInit() {
@@ -28,7 +32,6 @@ export class PerfilPage implements OnInit {
       this.getLocalId();
     });
   }
-
   async getLocalId() {
     const localId = await this.authSvc.getLocalId();
     if (localId) {
@@ -74,7 +77,6 @@ export class PerfilPage implements OnInit {
           placeholder: 'Ingresa tu nuevo' + nombreAtributo,
         },
       ],
-
       buttons: [
         {
           text: 'Cancelar',
@@ -93,8 +95,17 @@ export class PerfilPage implements OnInit {
         },
       ],
     });
-
     await alert.present();
+  }
+  async newImageUpload(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      this.newFile = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (image) => {
+        this.newImage = image.target.result as string;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
   /* getUid(){
     const uid = await this.authSvc.getUid();
