@@ -6,7 +6,6 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
-  styleUrls: ['./forgot-password.page.scss'],
 })
 export class ForgotPasswordPage {
   constructor(private authSvc: AuthService, private router: Router, private interacSvc: InteractionService) {}

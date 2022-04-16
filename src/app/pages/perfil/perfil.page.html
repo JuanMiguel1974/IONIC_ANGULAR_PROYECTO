@@ -11,25 +11,43 @@
 
 <ion-content>
     <ion-list>
+        <ion-card>
+            <ion-item *ngIf="infoIUser">
+                <ion-label>
+                    Nickname: {{infoIUser.nickname}}
+                </ion-label>
+                <ion-buttons slot="end">
+                    <ion-button (click)="editAtributo('nickname')">
+                        <ion-icon slot="end" name="create-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+        </ion-card>
         <ion-item *ngIf="infoIUser">
             <ion-label>
-                {{infoIUser.nickname}}
+                Foto perfil:
             </ion-label>
             <ion-buttons slot="end">
-                <ion-button (click)="editAtributo('nickname')">
-                    <ion-icon slot="end" name="create-outline"></ion-icon>
+                <ion-button (click)="saveFotoPerfil()">
+                    <ion-icon margin="10px" slot="end" name="create-outline"></ion-icon>
+                    <img class="image" [src]="infoIUser.fotoDePerfil">
+
                 </ion-button>
             </ion-buttons>
         </ion-item>
-        <ion-item *ngIf="infoIUser">
-            <ion-label>
-                <img class="image" [src]="infoIUser.fotoDePerfil">
-            </ion-label>
-            <ion-buttons slot="end">
-                <ion-button (click)="editAtributo('fotoDePerfil')">
-                    <ion-icon slot="end" name="create-outline"></ion-icon>
-                </ion-button>
-            </ion-buttons>
-        </ion-item>
+        <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
+
+        <ion-button>
+            <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+        </ion-button>
+
+        <div>
+            <ion-label>Previsualizacion</ion-label>
+            <img class="image" [src]="newImage">
+        </div>
+
+
     </ion-list>
 </ion-content>

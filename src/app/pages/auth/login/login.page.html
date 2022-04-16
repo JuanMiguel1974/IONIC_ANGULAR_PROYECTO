@@ -7,20 +7,39 @@
 
 <ion-content>
     <ion-card>
-        <form (ngSubmit)="onSubmit">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit">
             <ion-card>
-                <div [formGroup]="loginForm">
-                    <label>Email</label>
-                    <input type="text" formControlName="email">
+                <div>
+                    <label> Email </label>
+                    <ion-input type="text" formControlName="email"></ion-input>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <div class="error" *ngIf="email.errors.required">
+                            Email requerido
+                        </div>
+                        <div class="error" *ngIf="email.errors.minlength">
+                            Email debe tener 5 caracteres minimo
+                        </div>
+                        <div class="error" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.pattern">
+                            El email debe tener un formato correcto.
+                        </div>
+                    </div>
                 </div>
             </ion-card>
-            <div [formGroup]="loginForm">
-                <label>Password</label>
-                <input type="password" formControlName="password">
+            <div>
+                <label> Password </label>
+                <ion-input type="text" formControlName="password"></ion-input>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                    <div class="error" *ngIf="password.errors.required">
+                        Contraseña requerida
+                    </div>
+                    <div class="error" *ngIf="password.errors.minlength">
+                        Contraseña debe tener 6 caracteres minimo
+                    </div>
+                </div>
             </div>
             <div>
                 <ion-col>
-                    <ion-button type="submit" (click)="onSubmit()" expand="block">Login</ion-button>
+                    <ion-button type="submit" (click)="onSubmit()" expand="block" [disabled]="!loginForm.valid">Login</ion-button>
                 </ion-col>
             </div>
         </form>
@@ -40,36 +59,6 @@
         </ion-col>
     </ion-row>
     <form>
-        <!-- <ion-grid>
-            <ion-item lines="full">
-                <ion-label position="floating">Email</ion-label>
-                <ion-input type="text" #email required></ion-input>
-            </ion-item>
-            <ion-item lines="full">
-                <ion-label position="floating">Password</ion-label>
-                <ion-input type="password" #password required></ion-input>
-            </ion-item>
-            <ion-row>
-                <ion-col>
-                    <ion-button type="submit" (click)="onSubmit()" expand="block">Login</ion-button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <p class="ion-text-end">
-                        <a routerLink="/forgot-password">¿Olvidaste la contraseña?</a>
-                    </p>
-                </ion-col>
-            </ion-row>
-            <span class="center-span">Or</span>
-            <ion-row>
-                <ion-col>
-                    <ion-button type="submit" color="warning" (click)="onLoginGoogle()" expand="block">Login con Google
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </form> -->
         <ion-grid>
             <ion-row>
                 <ion-col>

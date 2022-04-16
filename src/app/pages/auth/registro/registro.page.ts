@@ -9,7 +9,6 @@ import { FirestorageService } from 'src/app/services/firestorage.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
-  styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
   newImage = '';

@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { async } from '@firebase/util';
 import { AlertController } from '@ionic/angular';
 import { IUser } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,6 +19,7 @@ export class PerfilPage implements OnInit {
   infoIUser: IUser = null;
   newImage = '';
   newFile: '';
+  newIUser: IUser;
 
   constructor(
     private authSvc: AuthService,
@@ -65,6 +67,19 @@ export class PerfilPage implements OnInit {
       this.interactionSvc.loading.dismiss();
     });
   }
+  async saveFotoPerfil() {
+    const path = 'Usuarios/';
+    const id = this.infoIUser.uid;
+    if (this.newFile !== undefined) {
+      const res = this.firestorageSvc.uploadImage(
+        this.newFile,
+        path,
+        id);
+        this.interactionSvc.presentToast('guardado con exito', 2000);
+        this.infoIUser.fotoDePerfil= this.newImage;
+        this.newImage='';
+      }
+  }
 
   async editAtributo(nombreAtributo: string) {
     const alert = await this.alertController.create({
@@ -97,6 +112,7 @@ export class PerfilPage implements OnInit {
     });
     await alert.present();
   }
+
   async newImageUpload(event: any) {
     if (event.target.files && event.target.files[0]) {
       this.newFile = event.target.files[0];
