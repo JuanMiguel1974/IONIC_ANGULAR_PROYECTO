@@ -22,11 +22,6 @@ const routes: Routes = [
 
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule),
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'verify-email',
     loadChildren: () => import('./pages/auth/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
   },
@@ -35,31 +30,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
-    path: 'producto-item',
-    loadChildren: () => import('./pages/productos/producto-item/producto-item.module').then( m => m.ProductoItemPageModule),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'productos-list',
-    loadChildren: () => import('./pages/productos/productos-list/productos-list.module').then( m => m.ProductosListPageModule),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'lista-item',
-    loadChildren: () => import('./pages/lista/lista-item/lista-item.module').then( m => m.ListaItemPageModule)
-  },
-  {
-    path: 'lista-list',
-    loadChildren: () => import('./pages/lista/lista-list/lista-list.module').then( m => m.ListaListPageModule)
-  },
-  {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'ajustes',
-    loadChildren: () => import('./pages/ajustes/ajustes.module').then( m => m.AjustesPageModule),
     canActivate: [AuthGuard],
   },
   {

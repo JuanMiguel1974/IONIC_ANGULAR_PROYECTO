@@ -10,7 +10,6 @@ import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { PagesInformationService } from 'src/app/services/pages-information.service';
-import { ProductoDbService } from 'src/app/services/productoDb.service';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -35,7 +34,6 @@ export class SetProductosPage implements OnInit {
 
   loading: any;
   constructor(
-    public productoDbSvc: ProductoDbService,
     private firestoreSvc: FirestoreService,
     public loadingController: LoadingController,
     public toastController: ToastController,
@@ -167,6 +165,7 @@ export class SetProductosPage implements OnInit {
       presentacion: '',
       foto: '',
       supermercado: '',
+      seccion:''
     };
     this.newImage = '';
   }

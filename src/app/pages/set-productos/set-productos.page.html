@@ -1,7 +1,11 @@
 <ion-header>
     <ion-toolbar color="secondary">
-        <ion-icon button size="large" name="arrow-back-outline" routerLink="/home"></ion-icon>
-        <ion-title slot="end">Añade productos a tu lista </ion-title>
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Productos</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -50,6 +54,13 @@
                     Supermercado:
                 </ion-label>
                 <ion-input [(ngModel)]="newProducto.supermercado" class="normal" type="text" inputmode="text">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="normal" position="floating">
+                    Sección:
+                </ion-label>
+                <ion-input [(ngModel)]="newProducto.seccion" class="normal" type="text" inputmode="text">
                 </ion-input>
             </ion-item>
             <ion-item>

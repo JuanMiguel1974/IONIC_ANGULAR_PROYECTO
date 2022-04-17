@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { async } from '@firebase/util';
 import { AlertController } from '@ionic/angular';
 import { IUser } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';

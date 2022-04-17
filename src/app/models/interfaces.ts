@@ -29,6 +29,7 @@ export interface Producto {
   presentacion: string;
   foto: string;
   supermercado: string;
+  seccion: string;
 }
 export interface Lista {
   id: string;
@@ -36,12 +37,13 @@ export interface Lista {
   total: number;
   mes: string;
 }
-export interface Super {
+export interface Supermercado {
+  id: string;
+  nombre: string;
+  ubicacion: string;
+}
+export interface Seccion {
   id: string;
   nombre: string;
 }
-export interface Totales {
-  totid: string;
-  meses: string[];
-  sumaMes: number;
-}
+
