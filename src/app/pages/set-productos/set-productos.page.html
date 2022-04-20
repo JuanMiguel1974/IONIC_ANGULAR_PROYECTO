@@ -12,7 +12,7 @@
 
 
     <div style="text-align: end; margin: 10px;">
-        <ion-button (click)="nuevo()" class="normal" color="dark"> nuevo</ion-button>
+        <ion-button (click)="nuevo()" ngDefaultControl class="normal" color="dark"> nuevo</ion-button>
     </div>
 
     <div *ngIf="enableNewProducto">
@@ -50,18 +50,16 @@
                 </ion-input>
             </ion-item>
             <ion-item>
-                <ion-label class="normal" position="floating">
-                    Supermercado:
-                </ion-label>
-                <ion-input [(ngModel)]="newProducto.supermercado" class="normal" type="text" inputmode="text">
-                </ion-input>
+                <ion-label>Supermercado</ion-label>
+                <ion-select [(ngModel)]="newProducto.supermercado" interface="popover" placeholder="Escoge uno">
+                    <ion-select-option *ngFor="let supermercado of supermercados" [value]="supermercado.nombre">{{supermercado.nombre}}</ion-select-option>
+                </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label class="normal" position="floating">
-                    Sección:
-                </ion-label>
-                <ion-input [(ngModel)]="newProducto.seccion" class="normal" type="text" inputmode="text">
-                </ion-input>
+                <ion-label>Secciones</ion-label>
+                <ion-select [(ngModel)]="newProducto.seccion" interface="popover" placeholder="Escoge una">
+                    <ion-select-option *ngFor="let seccion of secciones" [value]="seccion.nombre">{{seccion.nombre}}</ion-select-option>
+                </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label class="normal">

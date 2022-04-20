@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Secciones</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div style="text-align: end; margin: 10px;">
+        <ion-button (click)="nuevo()" ngDefaultControl class="normal" color="dark"> nuevo</ion-button>
+    </div>
+
+    <div *ngIf="enableNewSeccion">
+        <ion-item>
+            <ion-buttons slot="end">
+                <ion-button (click)="enableNewSeccion = false">
+                    <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+                <ion-button (click)="guardarSeccion() ">
+                    <ion-icon color="primary" slot="icon-only" name="save-sharp"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
+        <h3 class="subtitulo encabezado">Ingrese datos de la seccion</h3>
+        <ion-item>
+            <ion-label class="normal" position="floating">
+                Nombre:
+            </ion-label>
+            <ion-input [(ngModel)]="newSeccion.nombre" class="normal" type="text" inputmode="text">
+            </ion-input>
+        </ion-item>
+    </div>
+
+    <h3 class="subtitulo encabezado">Lista de Secciones</h3>
+
+    <ion-item *ngFor="let seccion of secciones">
+        <ion-label class="normal"> {{seccion.nombre}}</ion-label>
+    </ion-item>
+</ion-content>

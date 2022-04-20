@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Supermercadoes</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div style="text-align: end; margin: 10px;">
+        <ion-button (click)="nuevo()" ngDefaultControl class="normal" color="dark"> nuevo</ion-button>
+    </div>
+
+    <div *ngIf="enableNewSupermercado">
+        <ion-item>
+            <ion-buttons slot="end">
+                <ion-button (click)="enableNewSupermercado = false">
+                    <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+                <ion-button (click)="guardarSupermercado() ">
+                    <ion-icon color="primary" slot="icon-only" name="save-sharp"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
+        <h3 class="subtitulo encabezado">Ingrese datos de la Supermercado</h3>
+        <ion-item>
+            <ion-label class="normal" position="floating">
+                Nombre:
+            </ion-label>
+            <ion-input [(ngModel)]="newSupermercado.nombre" class="normal" type="text" inputmode="text">
+            </ion-input>
+        </ion-item>
+    </div>
+
+    <h3 class="subtitulo encabezado">Lista de Supermercadoes</h3>
+
+    <ion-item *ngFor="let supermercado of supermercados">
+        <ion-label class="normal"> {{supermercado.nombre}}</ion-label>
+    </ion-item>
+</ion-content>

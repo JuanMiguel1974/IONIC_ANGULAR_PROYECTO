@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
 import {
@@ -5,7 +6,12 @@ import {
   LoadingController,
   ToastController,
 } from '@ionic/angular';
-import { IUser, Producto } from 'src/app/models/interfaces';
+import {
+  IUser,
+  Producto,
+  Seccion,
+  Supermercado,
+} from 'src/app/models/interfaces';
 import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { InteractionService } from 'src/app/services/interaction.service';
@@ -22,6 +28,8 @@ export class SetProductosPage implements OnInit {
   productos: Producto[] = [];
 
   newProducto: Producto;
+  supermercados: Supermercado[] = [];
+  secciones: Seccion[] = [];
 
   enableNewProducto = false;
 
@@ -32,7 +40,10 @@ export class SetProductosPage implements OnInit {
   localId: string = null;
   infoIUser: IUser = null;
 
+
+
   loading: any;
+
   constructor(
     private firestoreSvc: FirestoreService,
     public loadingController: LoadingController,
@@ -54,6 +65,22 @@ export class SetProductosPage implements OnInit {
       this.newProducto = producto;
     }
     this.getProductos();
+    this.getSupermercados();
+    this.getSecciones();
+  }
+
+  getSupermercados() {
+    const path = 'Supermercados';
+    this.firestoreSvc.getCollection<Supermercado>(path).subscribe((res) => {
+      this.supermercados = res;
+    });
+  }
+
+  getSecciones() {
+    const path = 'Seccion';
+    this.firestoreSvc.getCollection<Seccion>(path).subscribe((res) => {
+      this.secciones = res;
+    });
   }
   async getLocalId() {
     const localId = await this.authSvc.getLocalId();
@@ -75,7 +102,6 @@ export class SetProductosPage implements OnInit {
       console.log('los datos son ->', res);
     });
   }
-
   async guardarProducto() {
     this.interactionSvc.presentLoading();
     const path = 'Productos/';
@@ -93,7 +119,7 @@ export class SetProductosPage implements OnInit {
       .then(async (res) => {
         this.interactionSvc.presentToast('guardado con exito', 2000);
         this.interactionSvc.loading.dismiss();
-        this.newImage='';
+        this.newImage = '';
       })
       .catch((error) => {
         this.interactionSvc.presentToast('no se pudo guardar', 2000);
@@ -108,7 +134,7 @@ export class SetProductosPage implements OnInit {
   async finishLoading() {
     this.loading = false;
     await this.loadingController.dismiss();
-}
+  }
   async deleteProducto(producto: Producto) {
     const alert = await this.alertController.create({
       cssClass: 'normal',
@@ -164,8 +190,8 @@ export class SetProductosPage implements OnInit {
       precio: null,
       presentacion: '',
       foto: '',
-      supermercado: '',
-      seccion:''
+      supermercado: null,
+      seccion: null,
     };
     this.newImage = '';
   }
@@ -180,4 +206,3 @@ export class SetProductosPage implements OnInit {
     }
   }
 }
-

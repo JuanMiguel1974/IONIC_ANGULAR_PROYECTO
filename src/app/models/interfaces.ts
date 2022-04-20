@@ -28,8 +28,8 @@ export interface Producto {
   precio: number;
   presentacion: string;
   foto: string;
-  supermercado: string;
-  seccion: string;
+  supermercado: Supermercado;
+  seccion: Seccion;
 }
 export interface Lista {
   id: string;

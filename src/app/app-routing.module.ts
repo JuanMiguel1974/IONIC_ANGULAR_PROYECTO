@@ -39,6 +39,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/set-productos/set-productos.module').then( m => m.SetProductosPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'set-secciones',
+    loadChildren: () => import('./pages/set-secciones/set-secciones.module').then( m => m.SetSeccionesPageModule)
+  },
+  {
+    path: 'set-supermercados',
+    loadChildren: () => import('./pages/set-supermercados/set-supermercados.module').then( m => m.SetSupermercadosPageModule)
+  },
 ];
 
 @NgModule({

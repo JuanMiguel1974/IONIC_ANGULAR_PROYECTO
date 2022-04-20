@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../models/interfaces';
 import { PerfilPage } from '../pages/perfil/perfil.page';
+import { SetSeccionesPage } from '../pages/set-secciones/set-secciones.page';
 
 @Injectable({
   providedIn: 'root',
