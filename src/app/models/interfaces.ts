@@ -33,9 +33,14 @@ export interface Producto {
 }
 export interface Lista {
   id: string;
-  productos: string[];
-  total: number;
-  mes: string;
+  usuario: IUser;
+  productos: ProductoLista [];
+  precioTotal: number;
+  fecha: Date;
+}
+export interface ProductoLista {
+  producto: Producto;
+  cantidad: number;
 }
 export interface Supermercado {
   id: string;

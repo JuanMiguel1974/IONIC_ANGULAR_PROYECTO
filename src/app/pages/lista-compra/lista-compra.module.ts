@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PerfilPageRoutingModule } from './perfil-routing.module';
+import { ListaCompraPageRoutingModule } from './lista-compra-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    ListaCompraPageRoutingModule,
   ],
 })
-export class PerfilPageModule {}
+export class ListaCompraPageModule {}

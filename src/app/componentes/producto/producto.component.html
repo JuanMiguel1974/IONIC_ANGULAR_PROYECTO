@@ -1,0 +1,12 @@
+<ion-card style="position: relative">
+
+    <ion-img class="img-producto" [src]="producto.foto"></ion-img>
+    <ion-item lines="full">
+        <ion-label class="subtitulo">{{producto.nombre}}</ion-label>
+    </ion-item>
+    <p class="precio"> {{producto.precio}}</p>
+    <p class="comentarios"> {{producto.presentacion}}</p>
+    <p class="comentarios"> {{producto.supermercado}}</p>
+    <p class="comentarios"> {{producto.seccion}}</p>
+    <ion-icon (click)="addLista()" class="icon-producto" name="bag-add-sharp"></ion-icon>
+</ion-card>

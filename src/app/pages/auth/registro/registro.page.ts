@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { IUser, User } from 'src/app/models/interfaces';
+import { IUser } from 'src/app/models/interfaces';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { FirestorageService } from 'src/app/services/firestorage.service';
@@ -9,6 +9,7 @@ import { FirestorageService } from 'src/app/services/firestorage.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
+  styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
   newImage = '';

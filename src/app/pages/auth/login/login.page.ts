@@ -8,7 +8,6 @@ import { InteractionService } from 'src/app/services/interaction.service';
 import { CookieService } from 'ngx-cookie-service';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';

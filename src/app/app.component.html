@@ -49,6 +49,18 @@
                             <ion-icon name="caret-down-sharp" type="button" routerLink="/set-supermercados"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item *ngIf="login === true">
+                            <ion-label>Añadir Lista compra</ion-label>
+                            <ion-icon name="caret-down-sharp" type="button" routerLink="/lista-compra"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item *ngIf="login === true">
+                            <ion-label>Lista compra</ion-label>
+                            <ion-icon name="caret-down-sharp" type="button" routerLink="/lista"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
 
                     <ion-menu-toggle>
                         <ion-item *ngIf="login === true">

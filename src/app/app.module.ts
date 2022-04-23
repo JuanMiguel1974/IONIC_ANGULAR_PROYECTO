@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -15,9 +16,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { ProductoPipePipe } from './pipes/producto-pipe.pipe';
+import { EmailDirective } from './directives/email-directive';
+import { PagesModule } from './pages/pages.module';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ProductoPipePipe, EmailDirective],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -29,7 +32,9 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
+    PagesModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     StatusBar,
     SplashScreen,

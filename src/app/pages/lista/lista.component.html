@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons>
+            <ion-button slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+            <ion-title>Lista de la compra</ion-title>
+            <ion-button slot="end" [routerLink]="['/lista-compra']">
+                <ion-icon color="primary" slot="icon-only" name="list-circle-sharp"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" [routerLink]="['/perfil']">
+                <ion-icon color="primary" slot="icon-only" name="person-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <div *ngFor="let producto of lista.productos">
+            <app-itemlista [productoLista]="producto"></app-itemlista>
+        </div>
+    </div>
+</ion-content>
