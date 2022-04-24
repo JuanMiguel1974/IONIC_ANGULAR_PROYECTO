@@ -36,8 +36,11 @@ export interface Lista {
   usuario: IUser;
   productos: ProductoLista [];
   precioTotal: number;
-  fecha: Date;
+  estado: EstadoLista;
+  fecha: any;
 }
+export type  EstadoLista = 'abierta' | 'guardada';
+
 export interface ProductoLista {
   producto: Producto;
   cantidad: number;

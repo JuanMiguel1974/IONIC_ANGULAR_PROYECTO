@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ItemlistaComponent } from './componentes/itemlista/itemlista.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ListaComponent } from './pages/lista/lista.component';
+import { MislistasComponent } from './pages/mislistas/mislistas.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
         (m) => m.ListaCompraPageModule
       ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'mislistas',
+    component: MislistasComponent,
   },
 ];
 

@@ -8,12 +8,12 @@ import { Observable, Subject } from 'rxjs';
 import { IUser, Lista, Producto, ProductoLista } from '../models/interfaces';
 import { AuthService } from './auth.service';
 import { FirestoreService } from './firestore.service';
+import { InteractionService } from './interaction.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListaService {
-  localId: string = localStorage.getItem('localId');
   uid: string = '';
   usuario: IUser;
   path = 'Lista/';
@@ -23,7 +23,9 @@ export class ListaService {
   constructor(
     private authSvc: AuthService,
     private firestoreSvc: FirestoreService,
-    public router: Router
+    public router: Router,
+    public interactionSvc: InteractionService,
+
   ) {
     this.authSvc.stateUser().subscribe((res) => {
       console.log(res);
@@ -42,36 +44,37 @@ export class ListaService {
   }
 
   loadLista() {
-    const path = 'Usuarios/' + this.localId + '/' + 'Lista';
-    this.firestoreSvc
-      .getDocument<Lista>(path, this.localId)
-      .subscribe((res) => {
-        console.log(res);
-        if (res) {
-          this.lista = res;
-          this.lista$.next(this.lista);
-        } else {
-          this.initLista();
-        }
-      });
+    const path = 'Usuarios/' + this.uid + '/' + 'Lista';
+    this.firestoreSvc.getDocument<Lista>(path, this.uid).subscribe((res) => {
+      console.log(res);
+      if (res) {
+        this.lista = res;
+        this.lista$.next(this.lista);
+      } else {
+        this.initLista();
+      }
+    });
   }
   initLista() {
     this.lista = {
-      id: this.localId,
+      id: this.uid,
       usuario: this.usuario,
       productos: [],
       precioTotal: null,
       fecha: new Date(),
+      estado:'abierta'
     };
     this.lista$.next(this.lista);
   }
 
   getLista(): Observable<Lista> {
+    this.lista$.next(this.lista);
+
     return this.lista$.asObservable();
   }
 
   addProducto(producto: Producto) {
-    if (this.localId.length) {
+    if (this.uid.length) {
       const item = this.lista.productos.find((productoLista) => {
         return productoLista.producto.id === producto.id;
       });
@@ -87,15 +90,18 @@ export class ListaService {
     } else {
       return;
     }
-    const path = 'Usuarios/' + this.localId + '/' + this.path;
+    this.lista$.next(this.lista);
+    const path = 'Usuarios/' + this.uid + '/' + this.path;
     this.firestoreSvc
       .createDocument(this.lista, path, this.lista.id)
       .then(() => {
         console.log('Añadido con exito');
+        this.interactionSvc.presentToast('Añadido con exito', 2000);
+
       });
   }
   removeProducto(producto: Producto) {
-    if (this.localId.length) {
+    if (this.uid.length) {
       let position = 0;
       const item = this.lista.productos.find((productoLista, index) => {
         position = index;
@@ -106,7 +112,7 @@ export class ListaService {
         if (item.cantidad === 0) {
           this.lista.productos.splice(position, 1);
         }
-        const path = 'Usuarios/' + this.localId + '/' + this.path;
+        const path = 'Usuarios/' + this.uid + '/' + this.path;
         this.firestoreSvc
           .createDocument(this.lista, path, this.lista.id)
           .then(() => {
@@ -116,5 +122,11 @@ export class ListaService {
     }
   }
   guardarLista() {}
-  clearLista() {}
+  clearLista() {
+    this.initLista();
+    const path = 'Usuarios/' + this.uid + '/' + 'Lista';
+    this.firestoreSvc.deleteDoc(path, this.uid).then(() => {
+      this.initLista();
+    });
+  }
 }

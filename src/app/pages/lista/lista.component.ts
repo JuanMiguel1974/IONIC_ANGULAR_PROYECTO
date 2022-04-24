@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { IUser, Lista } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { ListaService } from 'src/app/services/lista.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class ListaComponent implements OnInit {
   uid: string = '';
   usuario: IUser;
   lista: Lista = {} as Lista;
-  //lista: Lista;
+
   listaSuscriber: Subscription;
   total: number;
   cantidad: number;
@@ -23,16 +24,20 @@ export class ListaComponent implements OnInit {
   constructor(
     public firestoreSvc: FirestoreService,
     public listaSvc: ListaService,
-    public authSvc: AuthService
+    public authSvc: AuthService,
+    public interactionSvc: InteractionService,
+
   ) {
-    this.initLista();
     this.loadLista();
+    this.initLista();
   }
   ngOnInit() {}
 
   loadLista() {
     this.listaSvc.getLista().subscribe((res) => {
       this.lista = res;
+      this.getTotal();
+      this.getCantidad();
     });
   }
   initLista() {
@@ -42,6 +47,40 @@ export class ListaComponent implements OnInit {
       productos: [],
       precioTotal: null,
       fecha: new Date(),
+      estado:'abierta'
     };
+  }
+  getTotal() {
+    this.total = 0;
+    this.lista.productos.forEach((producto) => {
+      this.total = producto.producto.precio * producto.cantidad + this.total;
+    });
+  }
+
+  getCantidad() {
+    this.cantidad = 0;
+    this.lista.productos.forEach((producto) => {
+      this.cantidad = producto.cantidad + this.cantidad;
+    });
+  }
+  async guardarLista() {
+    if(!this.lista.productos.length){
+      console.log('Añade items a la lista');
+
+      return;
+    }
+    this.lista.estado = 'guardada';
+    this.lista.fecha = new Date();
+    this.lista.precioTotal = this.total;
+    this.lista.id = this.firestoreSvc.createId();
+    const uid = await this.authSvc.getLocalId();
+    const path = 'Usuarios/' + uid + '/listasGuardadas/';
+    console.log('guardar', this.lista, uid, path);
+
+    this.firestoreSvc.createDocument(this.lista, path, this.lista.id).then( () => {
+      this.interactionSvc.presentToast('Lista guardada con exito', 2000);
+      this.listaSvc.clearLista();
+
+   });
   }
 }

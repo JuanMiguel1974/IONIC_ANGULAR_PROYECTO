@@ -7,6 +7,7 @@ import { ComponentesModule } from '../componentes/componentes.module';
 import { ListaCompraPage } from './lista-compra/lista-compra.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { ListaComponent } from './lista/lista.component';
+import { MislistasComponent } from './mislistas/mislistas.component';
 
 
 
@@ -14,7 +15,8 @@ import { ListaComponent } from './lista/lista.component';
   declarations: [
 ListaCompraPage,
 PerfilPage,
-ListaComponent
+ListaComponent,
+MislistasComponent
   ],
   imports: [
     CommonModule,

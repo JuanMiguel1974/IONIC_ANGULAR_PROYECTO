@@ -11,7 +11,7 @@ export class FirestoreService {
   createDocument(data: any, path: string, id: string) {
     const collection = this.firestore.collection(path);
     return collection.doc(id).set(data);
-}
+  }
 
   getDocument<tipo>(path: string, id: string) {
     const collection = this.firestore.collection<tipo>(path);
@@ -34,7 +34,7 @@ export class FirestoreService {
     return collection.valueChanges();
   }
 
- /*  getCollectionQuery<tipo>(
+  getCollectionQuery<tipo>(
     path: string,
     parametro: string,
     condicion: any,
@@ -74,41 +74,5 @@ export class FirestoreService {
       ref.orderBy('fecha', 'desc').limit(limit).startAfter(startAt)
     );
     return collection.valueChanges();
-  } */
-}
-
-/*  createDocument(data: any, path: string, id: string) {
-   const collection = this.firestore.collection(path);
-    return collection.doc(id).set(data);
-  }
-
-  createId() {
-    return this.firestore.createId();
-  }
-  getDocument<tipo>(path: string, id: string){
-  return this.firestore.collection(path).doc<tipo>(id).valueChanges();
-
-  }
-
-  deleteDocument<tipo>(enlace: string, id: string) {
-    const ref = this.firestore.collection<tipo>(enlace);
-    return ref.doc(id).delete();
-  }
-
-  getCollectionChanges<tipo>(path: string): Observable<tipo[]> {
-    const ref = this.firestore.collection<tipo>(path);
-    return ref.valueChanges();
-  }
-  getCollection() {
-    this.firestore
-      .collection('users')
-      .valueChanges()
-      .subscribe((res) => {
-        console.log('users', res);
-      });
-  }
-  updateDocument(path: string, id: string, data: any){
-   return this.firestore.collection(path).doc(id).update(data);
   }
 }
- */

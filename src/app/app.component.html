@@ -61,7 +61,12 @@
                             <ion-icon name="caret-down-sharp" type="button" routerLink="/lista"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
-
+                    <ion-menu-toggle>
+                        <ion-item *ngIf="login === true">
+                            <ion-label>Mis pedidos</ion-label>
+                            <ion-icon name="file-tray-full-sharp" type="button" routerLink="/mislistas"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
                     <ion-menu-toggle>
                         <ion-item *ngIf="login === true">
                             <ion-label>Secciones</ion-label>
