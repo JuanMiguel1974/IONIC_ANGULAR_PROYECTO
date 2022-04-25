@@ -4,6 +4,13 @@ import { ItemlistaComponent } from './componentes/itemlista/itemlista.component'
 import { AuthGuard } from './guards/auth.guard';
 import { ListaComponent } from './pages/lista/lista.component';
 import { MislistasComponent } from './pages/mislistas/mislistas.component';
+import { canActivate } from '@angular/fire/auth-guard';
+import { map } from 'rxjs/operators';
+import { AdminGuard } from './guards/admin.guard';
+
+const esAdministrador = (next: any) =>
+  // eslint-disable-next-line @typescript-eslint/quotes
+  map( (user: any) => !!user && 'fgOaSpQTZOZeDNaE6YvPSJSu0g12' === user.uid);
 
 const routes: Routes = [
   {
@@ -60,17 +67,18 @@ const routes: Routes = [
     path: 'set-productos',
     loadChildren: () =>
       import('./pages/set-productos/set-productos.module').then(
-        (m) => m.SetProductosPageModule
-      ),
+        (m) => m.SetProductosPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'set-secciones',
     loadChildren: () =>
       import('./pages/set-secciones/set-secciones.module').then(
-        (m) => m.SetSeccionesPageModule
+        (m) => m.SetSeccionesPageModule,
       ),
-    canActivate: [AuthGuard],
+      //...canActivate(esAdministrador) ,
+     canActivate: [AdminGuard],
+
   },
   {
     path: 'set-supermercados',

@@ -13,16 +13,10 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class MislistasComponent implements OnInit, OnDestroy {
   nuevosSuscriber: Subscription;
   guardadosSuscriber: Subscription;
-  listaNueva: Lista = {} as Lista;
-  listasAnteriores: Lista[];
   listas: Lista[] = [];
-  uid = '';
-  localId= '';
-  infoIUser: IUser;
+  uid: string = localStorage.getItem('localId');
 
   constructor(
-    private router: Router,
-    private authSvc: AuthService,
     private firestoreSvc: FirestoreService
   ) {}
 
@@ -46,10 +40,12 @@ export class MislistasComponent implements OnInit, OnDestroy {
       this.getListaEnCurso();
     }
   }
-  async getListaEnCurso() {
+  getListaEnCurso() {
     console.log('getListasNuevas()');
-    const uid = await this.authSvc.getLocalId();
-    const path = 'Usuarios/' + uid + '/Lista/';
+    //const uid = await this.authSvc.getLocalId();
+    console.log(this.uid);
+
+    const path = 'Usuarios/' + this.uid + '/Lista/';
     this.nuevosSuscriber = this.firestoreSvc
       .getCollectionQuery<Lista>(path,'estado','==','abierta')
       .subscribe( res => {
@@ -59,10 +55,10 @@ export class MislistasComponent implements OnInit, OnDestroy {
         }
       });
   }
-  async getListasAnteriores() {
+  getListasAnteriores() {
     console.log('getListasAnteriores()');
-    const uid = await this.authSvc.getLocalId();
-    const path = 'Usuarios/' + uid + '/listasGuardadas/';
+   // const uid = await this.authSvc.getLocalId();
+    const path = 'Usuarios/' + this.uid + '/listasGuardadas/';
     this.guardadosSuscriber = this.firestoreSvc
       .getCollectionQuery<Lista>(path,'estado','==','guardada')
       .subscribe( res => {

@@ -14,12 +14,6 @@
             <ion-content>
                 <ion-list>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="perfil === 'admin'" routerLink="/ajustes">
-                            <ion-label>Ajustes</ion-label>
-                            <ion-icon slot="end" name="settings-outline"></ion-icon>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
                         <ion-item detail="true" *ngIf="login && perfil === 'usuario'" routerLink="/perfil">
                             <ion-label>Mi perfil</ion-label>
                             <ion-icon slot="exit-outline" name="apps"></ion-icon>
@@ -50,6 +44,12 @@
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
+                        <ion-item *ngIf="admin">
+                            <ion-label>Secciones</ion-label>
+                            <ion-icon name="caret-down-sharp" type="button" routerLink="/set-secciones"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
                         <ion-item *ngIf="login === true">
                             <ion-label>Añadir Lista compra</ion-label>
                             <ion-icon name="caret-down-sharp" type="button" routerLink="/lista-compra"></ion-icon>
@@ -63,14 +63,8 @@
                     </ion-menu-toggle>
                     <ion-menu-toggle>
                         <ion-item *ngIf="login === true">
-                            <ion-label>Mis pedidos</ion-label>
+                            <ion-label>Mis listas</ion-label>
                             <ion-icon name="file-tray-full-sharp" type="button" routerLink="/mislistas"></ion-icon>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
-                            <ion-label>Secciones</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/set-secciones"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>

@@ -31,7 +31,7 @@ import { PagesModule } from './pages/pages.module';
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireStorageModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     PagesModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],

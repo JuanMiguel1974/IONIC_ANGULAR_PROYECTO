@@ -12,29 +12,30 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Observable, of, Subject, BehaviorSubject, throwError } from 'rxjs';
-import { switchMap, map, mergeMap, catchError } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/auth';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public user$: Observable<User>;
+  public admin$: Observable<User>;
   userSubject = new Subject<User>();
   logged = new BehaviorSubject<boolean>(false);
   private token: string;
 
-  constructor(
-    public afAuth: AngularFireAuth,
-    public afs: AngularFirestore,
-    private http: HttpClient
-  ) {
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        }
+        return of(null);
+      })
+    );
+    this.admin$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -125,7 +126,7 @@ export class AuthService {
   }
   async getLocalId() {
     const user = await this.afAuth.currentUser;
-    if(user){
+    if (user) {
       const localId = localStorage.getItem('localId');
       console.log('localId', localId);
       return localId;

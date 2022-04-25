@@ -14,7 +14,7 @@ import { InteractionService } from './interaction.service';
   providedIn: 'root',
 })
 export class ListaService {
-  uid: string = '';
+  uid: string = localStorage.getItem('localId');
   usuario: IUser;
   path = 'Lista/';
   public lista: Lista;

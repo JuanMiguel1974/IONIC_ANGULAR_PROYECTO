@@ -13,9 +13,10 @@ import { ListaService } from 'src/app/services/lista.service';
   styleUrls: ['./lista.component.scss'],
 })
 export class ListaComponent implements OnInit {
-  uid: string = '';
+
   usuario: IUser;
   lista: Lista = {} as Lista;
+  uid: string = localStorage.getItem('localId');
 
   listaSuscriber: Subscription;
   total: number;
@@ -73,9 +74,9 @@ export class ListaComponent implements OnInit {
     this.lista.fecha = new Date();
     this.lista.precioTotal = this.total;
     this.lista.id = this.firestoreSvc.createId();
-    const uid = await this.authSvc.getLocalId();
-    const path = 'Usuarios/' + uid + '/listasGuardadas/';
-    console.log('guardar', this.lista, uid, path);
+    //const uid = await this.authSvc.getLocalId();
+    const path = 'Usuarios/' + this.uid + '/listasGuardadas/';
+    console.log('guardar', this.lista, this.uid, path);
 
     this.firestoreSvc.createDocument(this.lista, path, this.lista.id).then( () => {
       this.interactionSvc.presentToast('Lista guardada con exito', 2000);
