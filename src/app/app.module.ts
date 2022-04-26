@@ -16,11 +16,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ProductoPipePipe } from './pipes/producto-pipe.pipe';
 import { EmailDirective } from './directives/email-directive';
 import { PagesModule } from './pages/pages.module';
+import { FormsModule } from '@angular/forms';
+import { PipesModule } from './pipes/pipes.module';
+import { SupermercadoPipe } from './pipes/supermercado.pipe';
 @NgModule({
-  declarations: [AppComponent, ProductoPipePipe, EmailDirective],
+  declarations: [AppComponent, EmailDirective],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -32,13 +34,16 @@ import { PagesModule } from './pages/pages.module';
     HttpClientModule,
     AngularFireStorageModule,
     AngularFirestoreModule.enablePersistence(),
-    PagesModule
+    PagesModule,
+    FormsModule,
+    PipesModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     StatusBar,
     SplashScreen,
     CookieService,
+    SupermercadoPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

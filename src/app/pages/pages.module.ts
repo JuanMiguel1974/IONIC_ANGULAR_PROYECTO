@@ -8,15 +8,16 @@ import { ListaCompraPage } from './lista-compra/lista-compra.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { ListaComponent } from './lista/lista.component';
 import { MislistasComponent } from './mislistas/mislistas.component';
-
-
+import { TodaslistasComponent } from './todaslistas/todaslistas.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
 ListaCompraPage,
 PerfilPage,
 ListaComponent,
-MislistasComponent
+MislistasComponent,
+TodaslistasComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +25,7 @@ MislistasComponent
     RouterModule,
     FormsModule,
     ComponentesModule,
+    PipesModule
   ]
 })
 export class PagesModule { }

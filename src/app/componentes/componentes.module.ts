@@ -7,19 +7,19 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ItemlistaComponent } from './itemlista/itemlista.component';
 
 
-
 @NgModule({
   declarations: [
     ProductoComponent,
-    ItemlistaComponent
+    ItemlistaComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
+
   ], exports: [
     ProductoComponent,
-    ItemlistaComponent
+    ItemlistaComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

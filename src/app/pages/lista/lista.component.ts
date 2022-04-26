@@ -30,9 +30,9 @@ export class ListaComponent implements OnInit {
 
   ) {
     this.loadLista();
-    this.initLista();
+    //this.initLista();
   }
-  ngOnInit() {}
+  ngOnInit() { this.initLista();}
 
   loadLista() {
     this.listaSvc.getLista().subscribe((res) => {

@@ -14,9 +14,15 @@
             <ion-content>
                 <ion-list>
                     <ion-menu-toggle>
-                        <ion-item detail="true" *ngIf="login && perfil === 'usuario'" routerLink="/perfil">
+                        <ion-item detail="true" *ngIf="login === true" routerLink="/home">
+                            <ion-label>Home</ion-label>
+                            <ion-icon slot="end" name="home-sharp" type="button"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item detail="true" *ngIf="!admin && login===true" routerLink="/perfil">
                             <ion-label>Mi perfil</ion-label>
-                            <ion-icon slot="exit-outline" name="apps"></ion-icon>
+                            <ion-icon slot="end" type="button" name="person-circle-sharp"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
@@ -32,45 +38,51 @@
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
-                            <ion-label>Productos</ion-label>
+                        <ion-item *ngIf="admin">
+                            <ion-label> Crear Productos</ion-label>
                             <ion-icon name="caret-down-sharp" type="button" routerLink="/set-productos"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
-                            <ion-label>Supermercados</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/set-supermercados"></ion-icon>
+                        <ion-item *ngIf="admin">
+                            <ion-label> Crear Supermercados</ion-label>
+                            <ion-icon slot="end" name="caret-down-sharp" type="button" routerLink="/set-supermercados"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
                         <ion-item *ngIf="admin">
-                            <ion-label>Secciones</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/set-secciones"></ion-icon>
+                            <ion-label> Crear Secciones</ion-label>
+                            <ion-icon slot="end" name="caret-down-sharp" type="button" routerLink="/set-secciones"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
-                            <ion-label>Añadir Lista compra</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/lista-compra"></ion-icon>
+                        <ion-item *ngIf="!admin && login===true">
+                            <ion-label>Añade productos a tu lista</ion-label>
+                            <ion-icon slot="end" name="caret-down-sharp" type="button" routerLink="/lista-compra"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
+                        <ion-item *ngIf="!admin && login===true">
                             <ion-label>Lista compra</ion-label>
-                            <ion-icon name="caret-down-sharp" type="button" routerLink="/lista"></ion-icon>
+                            <ion-icon slot="end" name="caret-down-sharp" type="button" routerLink="/lista"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item *ngIf="login === true">
+                        <ion-item *ngIf="!admin && login===true">
                             <ion-label>Mis listas</ion-label>
-                            <ion-icon name="file-tray-full-sharp" type="button" routerLink="/mislistas"></ion-icon>
+                            <ion-icon slot="end" name="file-tray-full-sharp" type="button" routerLink="/mislistas"></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle>
-                        <ion-item detail="true" *ngIf="login === true" (click)="logout()">
+                        <ion-item *ngIf="admin">
+                            <ion-label>Todas las listas</ion-label>
+                            <ion-icon slot="end" name=" file-tray-full-sharp " type="button " routerLink="/todasLasListas"></ion-icon>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item detail="true " *ngIf="login===true " (click)="logout() ">
                             <ion-label>Logout</ion-label>
-                            <ion-icon slot="end" name="exit-outline" routerLink="/login"></ion-icon>
+                            <ion-icon slot="end " name="exit-outline " type="button " routerLink="/login "></ion-icon>
                         </ion-item>
                     </ion-menu-toggle>
                 </ion-list>

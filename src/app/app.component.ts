@@ -62,7 +62,6 @@ export class AppComponent {
     const path = 'Usuarios';
     const id = uid;
     this.firestoreSvc.getDocument<IUser>(path, id).subscribe(res => {
-      console.log('datos', res);
       if(res) {
       this.perfil = res.categoria;
       }

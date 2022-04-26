@@ -27,13 +27,13 @@ export class ListaService {
     public interactionSvc: InteractionService,
 
   ) {
-    this.authSvc.stateUser().subscribe((res) => {
+    this.loadUsuario();
+  /*   this.authSvc.stateUser().subscribe((res) => {
       console.log(res);
       if (res !== null) {
         this.uid = res.uid;
-        this.loadUsuario();
       }
-    });
+    }); */
   }
   loadUsuario() {
     const path = 'Usuarios';
@@ -46,7 +46,6 @@ export class ListaService {
   loadLista() {
     const path = 'Usuarios/' + this.uid + '/' + 'Lista';
     this.firestoreSvc.getDocument<Lista>(path, this.uid).subscribe((res) => {
-      console.log(res);
       if (res) {
         this.lista = res;
         this.lista$.next(this.lista);
@@ -69,7 +68,6 @@ export class ListaService {
 
   getLista(): Observable<Lista> {
     this.lista$.next(this.lista);
-
     return this.lista$.asObservable();
   }
 

@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons>
+            <ion-button slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-button>
+            <ion-title>Todas las listas</ion-title>
+            <ion-button slot="end" [routerLink]="['/lista-compra']">
+                <ion-icon color="primary" slot="icon-only" name="list-circle-sharp"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" [routerLink]="['/perfil']">
+                <ion-icon color="primary" slot="icon-only" name="person-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="margin">
+        <ion-segment mode="md" (ionChange)="segmentChanged($event)" value="procesando">
+            <ion-segment-button value="procesando">
+                <ion-label class="normal" color="primary">En creacion</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="guardados">
+                <ion-label class="normal" color="danger">Anteriores</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+    <div *ngIf="enProceso">
+        <ion-card *ngFor="let lista of listas">
+            <ion-item>
+                <ion-label class="normal">
+                    Estado: {{lista.estado}}
+                    <p>
+                        fecha: {{lista.fecha.seconds*1000 | date }}
+                    </p>
+                    <p> Usuario: {{lista.usuario.correo}}</p>
+                </ion-label>
+            </ion-item>
+            <app-itemlista *ngFor="let producto of lista.productos" [productoLista]="producto" [botones]=false></app-itemlista>
+        </ion-card>
+    </div>
+
+    <div *ngIf="!enProceso"></div>
+    <ion-card *ngFor="let lista of listasAnteriores">
+        <ion-item>
+            <ion-label class="normal">
+                Estado: {{lista.estado}}
+                <p>
+                    fecha: {{lista.fecha.seconds*1000 | date }}
+                </p>
+                <p> Usuario: {{lista.usuario.correo}}</p>
+            </ion-label>
+        </ion-item>
+        <app-itemlista *ngFor="let producto of lista.productos" [productoLista]="producto" [botones]=false></app-itemlista>
+    </ion-card>
+    <ion-button class="normal" (click)="cargarMas()"> Cargar más </ion-button>
+</ion-content>

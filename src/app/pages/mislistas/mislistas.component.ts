@@ -42,14 +42,10 @@ export class MislistasComponent implements OnInit, OnDestroy {
   }
   getListaEnCurso() {
     console.log('getListasNuevas()');
-    //const uid = await this.authSvc.getLocalId();
-    console.log(this.uid);
-
     const path = 'Usuarios/' + this.uid + '/Lista/';
     this.nuevosSuscriber = this.firestoreSvc
       .getCollectionQuery<Lista>(path,'estado','==','abierta')
       .subscribe( res => {
-        console.log('res',res);
         if (res) {
           this.listas = res;
         }
@@ -62,7 +58,6 @@ export class MislistasComponent implements OnInit, OnDestroy {
     this.guardadosSuscriber = this.firestoreSvc
       .getCollectionQuery<Lista>(path,'estado','==','guardada')
       .subscribe( res => {
-        console.log('res',res);
         if (res) {
           this.listas = res;
         }

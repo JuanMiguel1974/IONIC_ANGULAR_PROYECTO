@@ -56,17 +56,18 @@ export class FirestoreService {
     if (startAt == null) {
       startAt = new Date();
     }
-    const collection = this.firestore.collectionGroup<tipo>(path, (ref) =>
-      ref
-        .where(parametro, condicion, busqueda)
-        .orderBy('fecha', 'desc')
-        .limit(1)
-        .startAfter(startAt)
+    const collection = this.firestore.collectionGroup<tipo>(
+      path,
+      (ref) => ref
+      .where(parametro, condicion, busqueda)
+      .orderBy('fecha', 'desc')
+      .limit(2)
+      .startAfter(startAt)
     );
     return collection.valueChanges();
   }
 
-  getCollectionPaginada<tipo>(path: string, limit: number, startAt: any) {
+ /*  getCollectionPaginada<tipo>(path: string, limit: number, startAt: any) {
     if (startAt == null) {
       startAt = new Date();
     }
@@ -74,5 +75,5 @@ export class FirestoreService {
       ref.orderBy('fecha', 'desc').limit(limit).startAfter(startAt)
     );
     return collection.valueChanges();
-  }
+  } */
 }

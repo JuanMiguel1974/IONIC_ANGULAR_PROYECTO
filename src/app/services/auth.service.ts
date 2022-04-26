@@ -14,7 +14,6 @@ import {
 import { Observable, of, Subject, BehaviorSubject, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/auth';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
