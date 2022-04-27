@@ -22,6 +22,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.img = '../../../assets/img/home3.jpg';
+    this.img = 'https://i.pinimg.com/originals/ef/15/80/ef1580847081a59e204ded3517f14c18.jpg';
   }
 }
