@@ -26,7 +26,6 @@ export class ListaCompraPage implements OnInit {
       this.productos = res;
     });
   }
-
 async buscar( event ) {
 
  this.textoBuscar = event.detail.value;

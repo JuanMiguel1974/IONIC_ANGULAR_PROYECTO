@@ -9,4 +9,8 @@
     <p class="comentarios"> {{producto.supermercado}}</p>
     <p class="comentarios"> {{producto.seccion}}</p>
     <ion-icon (click)="addLista()" class="icon-producto" name="bag-add-sharp"></ion-icon>
+    <p class="comentarios" (click)="openModal()">
+        Comentarios
+        <ion-icon class="icon" name="chatbubble-ellipses-outline"></ion-icon>
+    </p>
 </ion-card>

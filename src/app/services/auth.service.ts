@@ -14,6 +14,7 @@ import {
 import { Observable, of, Subject, BehaviorSubject, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/auth';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,11 @@ export class AuthService {
   public admin$: Observable<User>;
   userSubject = new Subject<User>();
   logged = new BehaviorSubject<boolean>(false);
+  datosIUser: IUser;
   private token: string;
 
-  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
+
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public firestoreSvc: FirestoreService) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -42,6 +45,7 @@ export class AuthService {
         return of(null);
       })
     );
+    this.stateUser();
   }
   async login(email, password): Promise<User> {
     const data: User = {
@@ -139,6 +143,16 @@ export class AuthService {
     }
     return null;
   }
+  async getInfoUser() {
+    const uid = await this.getUid();
+    const path = 'Usuarios';
+    this.firestoreSvc.getDocument<IUser>(path, uid).subscribe( res => {
+          if (res !== undefined) {
+                this.datosIUser = res;
+                 console.log('datosCliente ->' , this.datosIUser);
+          }
+    });
+}
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`

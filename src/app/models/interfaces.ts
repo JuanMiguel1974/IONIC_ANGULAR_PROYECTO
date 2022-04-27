@@ -1,6 +1,6 @@
 export interface User {
   uid?: string;
-  email: string;
+  email?: string;
   displayName?: string;
   emailVerified?: boolean;
   password?: string;
@@ -53,5 +53,11 @@ export interface Supermercado {
 export interface Seccion {
   id: string;
   nombre: string;
+}
+export interface Comentario {
+  autor?: string;
+  comentario: string;
+  fecha: any;
+  id: string;
 }
 

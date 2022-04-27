@@ -7,6 +7,7 @@ import { MislistasComponent } from './pages/mislistas/mislistas.component';
 import { AdminGuard } from './guards/admin.guard';
 import { TodaslistasComponent } from './pages/todaslistas/todaslistas.component';
 import { SupermercadoPipe } from './pipes/supermercado.pipe';
+import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,10 @@ const routes: Routes = [
     path: 'todasLasListas',
     component: TodaslistasComponent,
   },
+{
+  path: 'comentarios',
+  component: ComentariosComponent
+}
 ];
 
 @NgModule({
