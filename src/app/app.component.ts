@@ -37,17 +37,17 @@ export class AppComponent {
         this.login = false;
       }
     });
-    this.initializeApp();
+    /* this.initializeApp(); */
     this.getUid();
   }
-  initializeApp() {
+ /*  initializeApp() {
     this.platform.ready().then( () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.getUid();
 
     });
-  }
+  } */
   closeMenu() {
     this.menu.close();
   }

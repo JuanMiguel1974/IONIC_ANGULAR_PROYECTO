@@ -75,7 +75,7 @@ export class ComentariosComponent implements OnInit, OnDestroy {
      console.log('comentario ->' , comentario);
      const path = 'Productos/' +  this.producto.id + '/comentarios';
      const data: Comentario = {
-        //autor: this.authService.datosIUser.correo,
+        autor: this.authService.datosIUser.correo,
         comentario: comentario,
         fecha: new Date(),
         id: this.firestoreService.createId()

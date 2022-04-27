@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { environment } from 'src/environments/environment';
+import { environmentProd } from 'src/environments/environment.prod';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt-interceptor.service';
@@ -29,7 +29,7 @@ import { SupermercadoPipe } from './pipes/supermercado.pipe';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environmentProd.firebaseConfig),
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireStorageModule,
