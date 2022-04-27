@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomePage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   login: boolean = false;
 
-  constructor(public authSvc: AuthService) {
+  constructor(public authSvc: AuthService, public firestorageSvc: FirestorageService) {
     this.authSvc.stateUser().subscribe((res) => {
       if (res) {
         this.login = true;
@@ -21,7 +22,8 @@ export class HomePage implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.img = 'https://i.pinimg.com/originals/ef/15/80/ef1580847081a59e204ded3517f14c18.jpg';
+ngOnInit(): void {
+    // eslint-disable-next-line max-len
+    this.img = 'https://firebasestorage.googleapis.com/v0/b/ionic-angular-ea1ae.appspot.com/o/home3.jpg?alt=media&token=a59ee2aa-079d-4561-b783-c75654b318ad';
   }
 }
