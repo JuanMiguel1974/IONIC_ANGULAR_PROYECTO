@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/models/interfaces';
 import { SupermercadoPipe } from 'src/app/pipes/supermercado.pipe';
 import { FirestoreService } from 'src/app/services/firestore.service';
