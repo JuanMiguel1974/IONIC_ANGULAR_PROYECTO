@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { FirestorageService } from 'src/app/services/firestorage.service';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +11,14 @@ import { FirestorageService } from 'src/app/services/firestorage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  img: string;
+img: any = '';
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   login: boolean = false;
-
-  constructor(public authSvc: AuthService, public firestorageSvc: FirestorageService) {
+  profileUrl: Observable<string | null>;
+  constructor(
+    public authSvc: AuthService,
+    public firestorage: AngularFireStorage
+  ) {
     this.authSvc.stateUser().subscribe((res) => {
       if (res) {
         this.login = true;
@@ -22,8 +28,16 @@ export class HomePage implements OnInit {
     });
   }
 
-ngOnInit(): void {
-    // eslint-disable-next-line max-len
-    this.img = 'https://firebasestorage.googleapis.com/v0/b/ionic-angular-ea1ae.appspot.com/o/home3.jpg?alt=media&token=a59ee2aa-079d-4561-b783-c75654b318ad';
+  ngOnInit(): void {
+const storage = getStorage();
+getDownloadURL(ref(storage, '/home3.jpg'))
+  .then((url) => {
+    const img = document.getElementById('myimg');
+    img.setAttribute('src', url);
+  })
+  .catch((error) => {
+    // Handle any errors
+  });
+
   }
 }

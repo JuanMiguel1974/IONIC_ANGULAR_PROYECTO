@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class FirestorageService {
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 
   constructor(public fireStorage: AngularFireStorage) {}
 

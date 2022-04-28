@@ -19,6 +19,7 @@ export class ListaCompraPage implements OnInit {
    }
 
   ngOnInit() {
+    this.loadProductos();
   }
   loadProductos(){
     this.firestoreSvc.getCollection<Producto>(this.path).subscribe( res => {

@@ -29,10 +29,10 @@ export class ListaComponent implements OnInit {
     public interactionSvc: InteractionService,
 
   ) {
-    this.loadLista();
-    //this.initLista();
+    this.initLista();
+    //this.loadLista();
   }
-  ngOnInit() { this.initLista();}
+  ngOnInit() { this.loadLista();}
 
   loadLista() {
     this.listaSvc.getLista().subscribe((res) => {
