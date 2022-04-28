@@ -6,7 +6,6 @@ import { ListaComponent } from './pages/lista/lista.component';
 import { MislistasComponent } from './pages/mislistas/mislistas.component';
 import { AdminGuard } from './guards/admin.guard';
 import { TodaslistasComponent } from './pages/todaslistas/todaslistas.component';
-import { SupermercadoPipe } from './pipes/supermercado.pipe';
 import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
 
 const routes: Routes = [
@@ -111,7 +110,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {useHash: true}),
   ],
   exports: [RouterModule],
 })
